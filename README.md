@@ -1,4 +1,4 @@
-Pressing Web Application
+Restaurant-Coffee Management Web Application
 
 This project is a pressing web application featuring a frontend built with the Quasar Framework, which can be run using quasar dev. 
 The backend is powered by Node.js, and you can start it with npm run server.

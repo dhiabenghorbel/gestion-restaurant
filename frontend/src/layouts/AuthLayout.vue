@@ -3,7 +3,7 @@
     <q-header style="background-color: #1a037e" elevated>
       <q-toolbar>
         <q-toolbar-title
-          ><div class="toolbar-title">LE PRESSING</div>
+          ><div class="toolbar-title">BISTRO VINTAGE</div>
         </q-toolbar-title>
         <div class="toolbar-text">CONNEXION</div>
         <!-- <router-link to="/login">Login</router-link>
@@ -21,8 +21,8 @@
 .toolbar-text {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 20px;
-  letter-spacing: 3px;
+  font-size: 17px;
+  letter-spacing: 2px;
   font-weight: bold;
   color: rgb(189, 185, 185);
 }
@@ -36,7 +36,7 @@
 }
 .q-layout {
   background-color: rgb(235, 232, 232);
-  /* background-image: url("https://www.creer-entreprendre.fr/wp-content/uploads/2019/09/pressing.jpg");
+  /* background-image: url("https://www.creer-entreprendre.fr/wp-content/uploads/2019/09/.jpg");
   background-repeat: no-repeat;
   background-size: 100%; */
 }

@@ -1,26 +1,29 @@
 <template>
   <div>
-    <!-- <q-img src="~assets/logopressing.png" class="center" style="width: 350px" /> -->
+    <!-- <q-img src="~assets/.png" class="center" style="width: 350px" /> -->
     <q-form @submit="Login" @reset="onReset">
       <q-item>
         <q-item-section>
           <q-img
-            src="~assets/loginimg2.jpg"
-            style="margin-top:-7px;height:606px;width:428px;margin-left:-15px"
+            src="~assets/resto2.jpg"
+            style="
+              margin-top: -7px;
+              height: 606px;
+              width: 428px;
+              margin-left: -15px;
+            "
           />
         </q-item-section>
-        <q-item-section style="margin-left:-100px;">
-          <q-img src="~assets/tel.png" style="width: 35px;margin-top:-50px" />
+        <q-item-section style="margin-left: -100px">
+          <q-img src="~assets/tel.png" style="width: 35px; margin-top: -50px" />
           <br />
           <div class="align">
-            <q-img src="~assets/logopressing.png" style="width: 270px" />
+            <q-img src="~assets/logobistro2.png" style="width: 300px" />
           </div>
+          <!-- <br />
+          <div class="titre">SE CONNECTER</div>
           <br />
-          <div class="titre">
-            SE CONNECTER
-          </div>
-          <br />
-          <br />
+          <br /> -->
 
           <div class="form-control">
             <q-input
@@ -31,7 +34,7 @@
               label="Email"
               hint="Entrer votre email"
               lazy-rules
-              :rules="[val => (val && val.length > 0) || 'Champ incorrect !']"
+              :rules="[(val) => (val && val.length > 0) || 'Champ incorrect !']"
             >
               <template v-slot:label>
                 <q-icon name="email" color="blue-10" size="23px" /> </template
@@ -47,7 +50,7 @@
               label="Mot de passe"
               lazy-rules
               :rules="[
-                val => (val !== null && val !== '') || 'Champ incorrect !'
+                (val) => (val !== null && val !== '') || 'Champ incorrect !',
               ]"
             >
               <template v-slot:append>
@@ -103,9 +106,9 @@ export default {
       isPwd: true,
       login: {
         email: null,
-        password: null
+        password: null,
       },
-      panier: []
+      panier: [],
 
       // accept: false
     };
@@ -125,7 +128,7 @@ export default {
           return (
             this.$q.notify({
               color: "green",
-              message: "Connexion avec succés"
+              message: "Connexion avec succés",
             }),
             this.$router.push("/Profile")
           );
@@ -134,7 +137,7 @@ export default {
         console.log("failed", err.res);
         return this.$q.notify({
           color: "red",
-          message: "Vérifiez vos données"
+          message: "Vérifiez vos données",
         });
       }
       // if (res) {
@@ -164,11 +167,11 @@ export default {
       this.login.email = null;
       this.login.password = null;
       // this.accept = false;
-    }
+    },
   },
   created() {
     localStorage.removeItem("token");
-  }
+  },
 };
 </script>
 

@@ -112,9 +112,9 @@ module.exports = function(/* ctx */) {
       workboxPluginMode: "GenerateSW", // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: `Pressing`,
-        short_name: `Pressing`,
-        description: `Pressing`,
+        name: `bistro-vintage`,
+        short_name: `bistro-vintage`,
+        description: `bistro-vintage`,
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",
@@ -177,7 +177,7 @@ module.exports = function(/* ctx */) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: "pressing"
+        appId: "bistro-vintage"
       },
 
       // More info: https://v1.quasar.dev/quasar-cli/developing-electron-apps/node-integration

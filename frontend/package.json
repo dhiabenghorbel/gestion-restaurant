@@ -1,8 +1,8 @@
 {
-  "name": "pressing",
+  "name": "bistro-vintage",
   "version": "0.0.1",
-  "description": "Pressing",
-  "productName": "Pressing",
+  "description": "bistro-vintage",
+  "productName": "bistro-vintage",
   "author": "dhiabenghorbel97@gmail.com",
   "private": true,
   "scripts": {

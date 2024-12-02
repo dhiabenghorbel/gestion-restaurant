@@ -1,6 +1,6 @@
-# Pressing (pressing)
+# bistro-vintage (bistro-vintage)
 
-Pressing
+bistro-vintage
 
 ## Install the dependencies
 ```bash

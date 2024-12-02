@@ -398,7 +398,7 @@ export default {
       mywindow.document.write("</head><body > <br/> <br/>");
 
       mywindow.document.write(
-        "<h1 align='center'>" + "LE PRESSING.TN" + "</h1>"
+        "<h1 align='center'>" + "BISTRO-VINTAGE.TN" + "</h1>"
       );
 
       mywindow.document.write(
@@ -407,7 +407,7 @@ export default {
           "<br/>" +
           "Tél : 24568974 Fax: 71954681" +
           "<br/>" +
-          "Email : lepressingtn@gmail.com" +
+          "Email : bistrovintagetn@gmail.com" +
           "</h4>"
       );
       mywindow.document.write(document.getElementById(id).innerHTML);

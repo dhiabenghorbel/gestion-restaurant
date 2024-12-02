@@ -13,9 +13,7 @@
         />
 
         <q-toolbar-title class="toolbar-title">
-          <div>
-            LE PRESSING
-          </div>
+          <div>BISTRO VINTAGE</div>
         </q-toolbar-title>
         <!-- <q-btn
           @click="logUserOut()"
@@ -74,10 +72,7 @@
       <!-- src="https://wallpapercave.com/wp/wp3404275.jpg" -->
 
       <q-list>
-        <div
-          style="margin-left:160px;
-        margin-top:20px"
-        >
+        <div style="margin-left: 160px; margin-top: 20px">
           <q-btn
             @click="confirm = true"
             class="butcol"
@@ -85,7 +80,7 @@
             rounded
             no-caps
             v-close-popup
-            style="width:115px"
+            style="width: 115px"
             size="9px"
             icon-right="logout"
             label="Déconnecter"
@@ -133,7 +128,7 @@
           <q-avatar size="60px" class="q-mb-sm">
             <img
               v-if="this.userdata && this.userdata.imageUrl"
-              style="width:290px"
+              style="width: 290px"
               :src="this.userdata.imageUrl"
             />
             <q-img v-else src="~assets/nopic.png" />
@@ -157,13 +152,13 @@
         </q-item> -->
         <!-- </q-img> -->
         <!-- <q-item-label header>
-          <q-img src="~assets/logopressing.png" />
+          <q-img src="~assets/.png" />
         </q-item-label> -->
         <q-item to="/profile" aria-label="" class="qtem">
           <template v-slot:>
             <div class="row items-center all-pointer-events">
               <q-icon
-                style="margin-right:31px"
+                style="margin-right: 31px"
                 class="q-mr-xs"
                 size="27px"
                 name="account_circle"
@@ -176,7 +171,7 @@
           <template v-slot:>
             <div class="row items-center all-pointer-events">
               <q-icon
-                style="margin-right:31px"
+                style="margin-right: 31px"
                 class="q-mr-xs"
                 size="27px"
                 name="supervisor_account"
@@ -215,7 +210,7 @@
           <template v-slot:>
             <div class="row items-center all-pointer-events">
               <q-icon
-                style="margin-right:31px"
+                style="margin-right: 31px"
                 class="q-mr-xs"
                 size="28px"
                 name="assignment"
@@ -251,21 +246,21 @@ const linksData = [
         link: "/user",
         title: "Gérants",
         caption: "",
-        icon: "account_box"
+        icon: "account_box",
       },
       {
         link: "/livreur",
         title: "Livreurs",
         caption: "",
-        icon: "delivery_dining"
-      }
+        icon: "delivery_dining",
+      },
       // {
       //   link: "/client",
       //   title: "Clients",
       //   caption: "",
       //   icon: "person"
       // }
-    ]
+    ],
   },
   {
     title: "Paramètres",
@@ -276,22 +271,22 @@ const linksData = [
         link: "/produit",
         title: "Produits",
         caption: "",
-        icon: "luggage"
+        icon: "luggage",
       },
       {
         link: "/categorie",
         title: "Categories",
         caption: "",
-        icon: "family_restroom"
+        icon: "family_restroom",
       },
       {
         link: "/service",
         title: "Services",
         caption: "",
-        icon: "local_laundry_service"
-      }
-    ]
-  }
+        icon: "local_laundry_service",
+      },
+    ],
+  },
 ];
 
 export default {
@@ -303,7 +298,7 @@ export default {
       user: [],
       userdata: [],
       leftDrawerOpen: false,
-      essentialLinks: linksData
+      essentialLinks: linksData,
     };
   },
 
@@ -339,8 +334,8 @@ export default {
       // console.log(this.user);
       this.userId = this.user._id;
       // console.log(this.userId);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

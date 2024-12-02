@@ -44,7 +44,7 @@
       </q-item>
       <br />
       <q-item>
-        <q-item-section>
+        <!-- <q-item-section>
           <q-input
             style="width:150px;"
             dense
@@ -90,12 +90,15 @@
               </div>
             </template>
           </q-input>
-        </q-item-section>
+        </q-item-section> -->
+        <label class="title">
+          Prix à payer :
+        </label>
         <q-item-section>
           <q-input
             readonly
             hint="Prix total"
-            style="width:120px;"
+            style="width:220px;margin-left:20px;margin-top:-15px"
             dense
             v-model="commande.prixTotal"
             :label="this.prixTotal + ' TND'"
@@ -160,11 +163,11 @@
         </select>
         <br />
         <br />
-        <label class="title">
+        <!-- <label class="title">
           Livraison express à domicile et gratuite<br />
           La durée du livraison : 2 jours
         </label>
-        <br />
+        <br /> -->
         <br />
       </div>
 
@@ -205,8 +208,8 @@ export default {
       optionsPaiement: ["Espéces", "Chéque Bancaire", "Carte Bancaire"],
       prixTotal: 0,
       commande: {},
-      rest: 0,
-      avance: 0,
+      // rest: 0,
+      // avance: 0,
       prix: 0,
       liv_checked: false,
       produitPanier: {},
@@ -224,57 +227,50 @@ export default {
     CalculPrix() {
       let panier = JSON.parse(localStorage.getItem("panier"));
       panier.forEach(element => {
-        element.services.forEach(el => {
-          if (el.checked) {
-            //  console.log("liste prix :", el.prix);
-            this.prix = this.prix + parseFloat(el.prix);
-          }
+            this.prix = this.prix + (parseFloat(element.prix) * parseInt(element.quantity)) ;
         });
-        //console.log("liste quantité :", element.quantity);
-
-        this.prix = this.prix * parseInt(element.quantity);
-        //console.log("prix :", this.prix);
-        this.prixTotal = this.prixTotal + this.prix;
+        // this.prix = this.prix * parseInt(element.quantity);
+        this.prixTotal = this.prix;
         this.prix = 0;
-      });
       //console.log("prix : ", this.prixTotal);
       return this.prixTotal;
     },
-    prixRest() {
-      return (this.rest = this.prixTotal - this.avance);
-    },
+    // prixRest() {
+    //   return (this.rest = this.prixTotal - this.avance);
+    // },
 
     ajoutProd() {
       let comm = [];
       let prix = 0;
       let panier = JSON.parse(localStorage.getItem("panier"));
+      console.log('🚀 ~ panier ~ panier ~ panier', panier);
       panier.forEach(element => {
         let produits = {};
         let commandeServices = [];
         produits.produit = element._id;
         produits.quantite = element.quantity;
-        element.services.forEach(el => {
-          if (el && el.checked) {
-            prix = prix + parseFloat(el.prix);
-            commandeServices.push(el.service);
-          }
-        });
+        // element.services.forEach(el => {
+        //   if (el && el.checked) {
+        //     prix = prix + parseFloat(el.prix);
+        //     commandeServices.push(el.service);
+        //   }
+        // });
         produits.prix = prix * parseInt(produits.quantite);
         prix = 0;
-        produits.services = commandeServices;
+        // produits.services = commandeServices;
         comm.push(produits);
       });
       this.commande.produits = comm;
 
-      this.commande.rest = this.rest;
-      this.commande.avance = this.avance;
+      // this.commande.rest = this.rest;
+      // this.commande.avance = this.avance;
       this.commande.prixTotal = this.prixTotal;
-      this.commande.dateLivraison = this.dateLiv;
-      if (this.rest === 0) {
-        this.commande.etatPaiement = "Payer";
-      } else {
-        this.commande.etatPaiement = "Non Payer";
-      }
+      // this.commande.dateLivraison = this.dateLiv;
+      // if (this.rest === 0) {
+      //   this.commande.etatPaiement = "Payer";
+      // } else {
+      //   this.commande.etatPaiement = "Non Payer";
+      // }
       if (this.commande.livrer_par) {
         this.commande.etatLivraison = "Non Livrer";
       }

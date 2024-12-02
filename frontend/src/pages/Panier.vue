@@ -3,7 +3,7 @@
     <br />
     <div align="center">
       <h4>
-        RÉCAPITULATIF DE MON PANIER
+        ADDITION
       </h4>
     </div>
 
@@ -45,10 +45,10 @@
                   <q-list dense class="mylist">
                     <q-item>
                       <q-item-section avatar>
-                        <q-item-label caption> Code</q-item-label>
+                        <q-item-label caption> Prix </q-item-label>
                       </q-item-section>
                       <q-item-section class="absolute-center">
-                        <q-item-label>{{ props.row.code }}</q-item-label>
+                        <q-item-label>{{ props.row.prix * Panier[props.pageIndex].quantity }} TND</q-item-label>
                       </q-item-section>
                     </q-item>
 
@@ -95,7 +95,7 @@
                   </q-list>
                   <q-separator vertical />
 
-                  <q-item-section>
+                  <!-- <q-item-section>
                     <q-scroll-area
                       class="myscroll2"
                       :thumb-style="thumbStyle"
@@ -151,7 +151,7 @@
                         </span>
                       </span>
                     </q-scroll-area>
-                  </q-item-section>
+                  </q-item-section> -->
 
                   <q-separator vertical />
                   <q-item>
@@ -277,41 +277,41 @@ export default {
       editDialog: false,
       filter: "",
       categories: [],
-      services: [],
-      checkedServices: [],
+      // services: [],
+      // checkedServices: [],
       Panier: []
     };
   },
 
   methods: {
-    setServiceCheckedForService(index, serviceId, val) {
-      this.Panier[index].services = this.Panier[index].services.map(service => {
-        if (service._id === serviceId) {
-          service.checked = val;
-          this.Panier[index].checked = val;
-        }
-        return service;
-      });
-    },
+    // setServiceCheckedForService(index, serviceId, val) {
+    //   this.Panier[index].services = this.Panier[index].services.map(service => {
+    //     if (service._id === serviceId) {
+    //       service.checked = val;
+    //       this.Panier[index].checked = val;
+    //     }
+    //     return service;
+    //   });
+    // },
 
     ValiderCommande() {
-      localStorage.setItem("panier", JSON.stringify(this.Panier));
+      // localStorage.setItem("panier", JSON.stringify(this.Panier));
 
-      let test = 0;
-      this.Panier.forEach(el => {
-        if (el.checked) {
-          test = test + 1;
-        }
-      });
-      if (test >= this.Panier.length) {
+      // let test = 0;
+      // this.Panier.forEach(el => {
+      //   if (el.checked) {
+      //     test = test + 1;
+      //   }
+      // });
+      // if (test >= this.Panier.length) {
         localStorage.setItem("panier", JSON.stringify(this.Panier));
         this.editDialog = true;
-      } else {
-        return this.$q.notify({
-          color: "red",
-          message: "Sélectionner au moins un service pour chaque produit"
-        });
-      }
+      // } else {
+      //   return this.$q.notify({
+      //     color: "red",
+      //     message: "Sélectionner au moins un service pour chaque produit"
+      //   });
+      // }
     },
     deleteFromPanier(_id) {
       //  console.log(_id);
@@ -328,14 +328,14 @@ export default {
       this.categories = { ...categories };
     },
 
-    async getAllServices() {
-      let res = await this.$axios.get("/service");
-      let services = {};
-      res.data.forEach(el => {
-        services[el._id] = el.nom;
-      });
-      this.services = { ...services };
-    },
+    // async getAllServices() {
+    //   let res = await this.$axios.get("/service");
+    //   let services = {};
+    //   res.data.forEach(el => {
+    //     services[el._id] = el.nom;
+    //   });
+    //   this.services = { ...services };
+    // },
 
     getPanier() {
       this.Panier = JSON.parse(localStorage.getItem("panier"));
@@ -347,7 +347,7 @@ export default {
     await this.getPanier();
 
     await this.getAllCategories();
-    await this.getAllServices();
+    // await this.getAllServices();
   }
 };
 </script>
@@ -366,7 +366,7 @@ h4 {
   font-size: 2em;
   color: darkblue;
   align-self: center;
-  width: 600px;
+  width: 400px;
   padding: 5px;
   letter-spacing: 2px;
   font-weight: bold;

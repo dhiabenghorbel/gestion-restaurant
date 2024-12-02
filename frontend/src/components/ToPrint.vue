@@ -11,9 +11,9 @@
         <td align="center" v-if="key === 'createdAt'">
           Date de commande : {{ val }}
         </td>
-        <td align="center" v-if="key === 'dateLivraison'">
+        <!-- <td align="center" v-if="key === 'dateLivraison'">
           Date de livraison : {{ val }}
-        </td>
+        </td> -->
         <td align="center" v-if="key === 'livrer_par'">
           livreur : {{ NomLivreurs[val] }} {{ PrenomLivreurs[val] }}
         </td>
@@ -56,8 +56,8 @@
           Moyen de paiement : {{ val }} TND
         </td>
 
-        <td v-if="key === 'avance'">Prix d'avance : {{ val }} TND</td>
-        <td v-if="key === 'rest'">Rest à payer : {{ val }} TND</td>
+        <!-- <td v-if="key === 'avance'">Prix d'avance : {{ val }} TND</td>
+        <td v-if="key === 'rest'">Rest à payer : {{ val }} TND</td> -->
         <td v-if="key === 'prixTotal'">
           Total H.T : {{ parseFloat(val) / 1.19 }} TND
           <br />

@@ -303,7 +303,7 @@ export default {
     },
 
     EditService() {
-      console.log(this.selected);
+      // console.log(this.selected);
       if (!this.selected[0]._id) {
         return this.$q.notify({
           color: "warning",

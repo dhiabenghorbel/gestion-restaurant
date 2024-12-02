@@ -74,10 +74,10 @@
                 </q-item>
               </q-list>
 
-              <q-separator vertical />
+              <!-- <q-separator vertical /> -->
 
-              <q-item-section>
-                <q-scroll-area
+              <!-- <q-item-section> -->
+                <!-- <q-scroll-area
                   class="myscroll2"
                   :thumb-style="thumbStyle"
                   :bar-style="barStyle"
@@ -92,14 +92,14 @@
                   </q-item-section>
                   <q-separator horizontal style="margin-left:-120px" />
 
-                  <br />
-                  <span v-for="item in props.row.services" :key="item._id">
+                  <br /> -->
+                  <!-- <span v-for="item in props.row.services" :key="item._id">
                     <div align="center">
                       <span> {{ services[item] }} </span>
                     </div>
-                  </span>
-                </q-scroll-area>
-              </q-item-section>
+                  </span> -->
+                <!-- </q-scroll-area> -->
+              <!-- </q-item-section> -->
             </q-card-section>
           </q-card-section>
         </q-card>
@@ -143,7 +143,7 @@ export default {
       produitsCategorie: [],
       produitCommande: [],
       categories: [],
-      services: [],
+      // services: [],
       produits: [],
       produitImage: [],
       columns: [
@@ -191,12 +191,12 @@ export default {
           align: "center",
           field: "categorie"
         },
-        {
-          name: "service",
-          label: "Service",
-          align: "center",
-          field: "service"
-        },
+        // {
+        //   name: "service",
+        //   label: "Service",
+        //   align: "center",
+        //   field: "service"
+        // },
         {
           name: "prix",
           label: "Prix",
@@ -223,14 +223,14 @@ export default {
       });
       this.categories = { ...categories };
     },
-    async getAllServices() {
-      let res = await this.$axios.get("/service");
-      let services = {};
-      res.data.forEach(el => {
-        services[el._id] = el.nom;
-      });
-      this.services = { ...services };
-    },
+    // async getAllServices() {
+    //   let res = await this.$axios.get("/service");
+    //   let services = {};
+    //   res.data.forEach(el => {
+    //     services[el._id] = el.nom;
+    //   });
+    //   this.services = { ...services };
+    // },
     async getAllProductsCategorie() {
       let res = await this.$axios.get("/produit");
       let produitsCategorie = {};
@@ -255,7 +255,7 @@ export default {
     //  console.log("produits", this.produit);
     // this.produitCommande = { ...this.produit };
     // console.log(this.produitCommande);
-    await this.getAllServices();
+    // await this.getAllServices();
     await this.getAllImageProducts();
     await this.getAllCategories();
     await this.getAllProductsCategorie();

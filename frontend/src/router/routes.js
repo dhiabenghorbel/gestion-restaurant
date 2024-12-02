@@ -76,14 +76,14 @@ const routes = [
         meta: {
           requiresAuth: true
         }
-      },
-      {
-        path: "/service",
-        component: () => import("src/pages/Services.vue"),
-        meta: {
-          requiresAuth: true
-        }
       }
+      // {
+      //   path: "/service",
+      //   component: () => import("src/pages/Services.vue"),
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // }
     ]
   },
 

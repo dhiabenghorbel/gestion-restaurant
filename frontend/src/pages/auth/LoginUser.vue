@@ -134,7 +134,7 @@ export default {
           );
         }
       } catch (err) {
-        console.log("failed", err.res);
+        // console.log("failed", err.res);
         return this.$q.notify({
           color: "red",
           message: "Vérifiez vos données",

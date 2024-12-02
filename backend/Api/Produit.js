@@ -20,9 +20,9 @@ route.post("/", async (req, res) => {
       Produit.description = req.body.description;
       Produit.imageUrl = req.body.imageUrl;
       Produit.etat = req.body.etat;
-      // Produit.prix = req.body.prix;
+      Produit.prix = req.body.prix;
       Produit.categorie = req.body.categorie;
-      Produit.services = req.body.services;
+      // Produit.services = req.body.services;
 
       await Produit.save();
 

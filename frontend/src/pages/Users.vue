@@ -373,7 +373,7 @@ export default {
     async getUserData() {
       let res = await this.$axios.get(`/utilisateur/${this.userId}`);
       this.userdata = res.data;
-      console.log(this.userdata);
+      // console.log(this.userdata);
     },
     async getAll() {
       let res = await this.$axios.get("/utilisateur");

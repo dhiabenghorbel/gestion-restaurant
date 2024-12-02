@@ -126,6 +126,35 @@
         </q-item-section>
       </q-item>
       <br />
+      <q-item>
+        <q-item-section>
+          <label class="title"> Prix :</label>
+        </q-item-section>
+        <q-item-section>
+          <q-input
+            type="number"
+            style="margin-left:-105px;width:330px"
+            outlined
+            dense
+            color="secondary"
+            v-model.trim="produitCopy.prix"
+            label="Prix"
+            lazy-rules
+            :rules="[val => (val && val > 0) || 'Please type the amount of money needed']"
+          >
+            <template v-slot:prepend>
+              <div class="row items-center all-pointer-events">
+                <q-icon
+                  class="q-mr-xs"
+                  color="secondary"
+                  size="20px"
+                  name="money"
+                />
+              </div>
+            </template>
+          </q-input>
+        </q-item-section>
+      </q-item>
       <!-- <q-item>
         <q-item-section>
           <label class="title"> Catégorie :</label>
@@ -142,7 +171,7 @@
           </span>
         </q-item-section>
       </q-item> -->
-      <br />
+      <!-- <br />
       <q-item v-if="!this.produit">
         <q-item-section>
           <label class="title"> Service(s) :</label>
@@ -170,9 +199,9 @@
             </span>
           </span>
         </q-item-section>
-      </q-item>
+      </q-item> -->
       <!------------------------------------->
-      <q-item v-if="this.produit">
+      <!-- <q-item v-if="this.produit">
         <div>
           <label class="title">
             cochez si vous voulez rechoisir <br />
@@ -182,10 +211,10 @@
         </div>
         <br />
         <div v-if="serv_checked">
-          <!-- <q-item-section>
+           <q-item-section>
             <label class="title"> choisir le(s) Service(s) :</label>
           </q-item-section> -->
-          <q-item-section>
+          <!-- <q-item-section>
             <span v-for="item in services" :key="item._id">
               <input
                 v-if="item.etat === 'Actif'"
@@ -209,7 +238,7 @@
             </span>
           </q-item-section>
         </div>
-      </q-item>
+      </q-item> -->
       <!---------------------------->
       <br />
 
@@ -288,7 +317,7 @@ export default {
       // genreOptions: ["Homme", "Femme"],
       etatOptions: ["Actif", "Inactif"],
       categories: [],
-      services: [],
+      // services: [],
       produitCopy: {},
       checkedServices: [],
       checking: [],
@@ -308,27 +337,29 @@ export default {
       this.categories = { ...categories };
       // console.log(this.categories);
     },
-    async getAllServices() {
-      let res = await this.$axios.get("/service");
-      let services = {};
-      res.data.forEach(el => {
-        services[el._id] = el.nom;
-      });
-      this.services = { ...services };
-      // console.log(this.services);
-    },
+    // async getAllServices() {
+    //   let res = await this.$axios.get("/service");
+    //   let services = {};
+    //   res.data.forEach(el => {
+    //     services[el._id] = el.nom;
+    //   });
+    //   this.services = { ...services };
+    //   // console.log(this.services);
+    // },
     async onAdd() {
-      let com = {};
-      let servprod = [];
-      for (let i in this.checking) {
-        com.service = i;
-        com.prix = this.checking[i];
-        servprod.push(com);
-        com = {};
-      }
+      // let com = {};
+      // let servprod = [];
+      // for (let i in this.checking) {
+      //   com.service = i;
+      //   com.prix = this.checking[i];
+      //   servprod.push(com);
+      //   com = {};
+      // }
       // console.log("servprod :", servprod);
-      this.produitCopy.services = servprod;
-      if (this.produitCopy.categorie && this.produitCopy.services.length > 0) {
+      // this.produitCopy.services = servprod;
+      if (this.produitCopy.categorie 
+      // && this.produitCopy.services.length > 0
+    ) {
         //  this.produitCopy.service = this.checkedServices;
         this.$refs.myForm.validate().then(async success => {
           if (success) {
@@ -359,29 +390,29 @@ export default {
       this.categories = res.data;
       //console.log(this.categories);
     },
-    async getServ() {
-      let res = await this.$axios.get("/service");
-      this.services = res.data;
-      // console.log(this.services);
-    },
+    // async getServ() {
+    //   let res = await this.$axios.get("/service");
+    //   this.services = res.data;
+    //   // console.log(this.services);
+    // },
     async getAll() {
       let res = await this.$axios.get("/produit");
       this.produits = res.data;
       //console.log(this.produits);
     },
     async onEdit() {
-      if (this.serv_checked) {
-        let com = {};
-        let servprod = [];
-        for (let i in this.checking) {
-          com.service = i;
-          com.prix = this.checking[i];
-          servprod.push(com);
-          com = {};
-        }
-        // console.log("servprod :", servprod);
-        this.produitCopy.services = servprod;
-      }
+      // if (this.serv_checked) {
+      //   let com = {};
+      //   // let servprod = [];
+      //   for (let i in this.checking) {
+      //     com.service = i;
+      //     com.prix = this.checking[i];
+      //     servprod.push(com);
+      //     com = {};
+      //   }
+      //   // console.log("servprod :", servprod);
+      //   this.produitCopy.services = servprod;
+      // }
       let test = 0;
 
       this.$refs.myForm.validate().then(async success => {
@@ -416,12 +447,12 @@ export default {
         }
       });
     },
-    checked() {
-      checkedServices.forEach(el => {
-        chck[el._id] = "";
-      });
-      this.checking = { ...chck };
-    },
+    // checked() {
+    //   checkedServices.forEach(el => {
+    //     chck[el._id] = "";
+    //   });
+    //   this.checking = { ...chck };
+    // },
     onCancel() {
       this.$emit("closeDialog");
     }
@@ -432,7 +463,7 @@ export default {
   async mounted() {
     this.produitCopy = { ...this.produit };
     await this.getCat();
-    await this.getServ();
+    // await this.getServ();
     await this.getAll();
     // if (this.produit) {
     //   this.produitCopy.forEach(element => {

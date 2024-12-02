@@ -44,19 +44,19 @@
               {{ NomClients[props.row.client] }}
               {{ PrenomClients[props.row.client] }}
             </q-td>
-            <q-td key="avance" :props="props">
+            <!-- <q-td key="avance" :props="props">
               {{ props.row.avance }} TND
             </q-td>
-            <q-td key="rest" :props="props"> {{ props.row.rest }} TND </q-td>
+            <q-td key="rest" :props="props"> {{ props.row.rest }} TND </q-td> -->
             <q-td key="prixTotal" :props="props"
               >{{ props.row.prixTotal }} TND</q-td
             >
             <q-td key="MoyenPaiement" :props="props">{{
               props.row.MoyenPaiement
             }}</q-td>
-            <q-td key="etatPaiement" :props="props">{{
+            <!-- <q-td key="etatPaiement" :props="props">{{
               props.row.etatPaiement
-            }}</q-td>
+            }}</q-td> -->
             <q-td key="livrer_par" :props="props"
               >{{ NomLivreurs[props.row.livrer_par] }}
               {{ PrenomLivreurs[props.row.livrer_par] }}
@@ -64,9 +64,9 @@
             <q-td key="etatLivraison" :props="props">{{
               props.row.etatLivraison
             }}</q-td>
-            <q-td key="dateLivraison" :props="props">{{
+            <!-- <q-td key="dateLivraison" :props="props">{{
               props.row.dateLivraison
-            }}</q-td>
+            }}</q-td> -->
             <q-td key="produits" :props="props"
               ><q-btn
                 @click="
@@ -185,8 +185,7 @@
           />
 
           <span class="q-ml-sm"
-            >êtes-vous sûr que le client a pris son commande en payant le prix
-            total ?
+            >êtes-vous sûr que la commande a été bien livrée ?
           </span>
         </q-card-section>
 
@@ -317,18 +316,18 @@ export default {
           align: "center",
           field: "client"
         },
-        {
-          name: "avance",
-          label: "Prix d'avance",
-          align: "center",
-          field: "avance"
-        },
-        {
-          name: "rest",
-          field: "rest",
-          label: "Rest à payer",
-          align: "center"
-        },
+        // {
+        //   name: "avance",
+        //   label: "Prix d'avance",
+        //   align: "center",
+        //   field: "avance"
+        // },
+        // {
+        //   name: "rest",
+        //   field: "rest",
+        //   label: "Rest à payer",
+        //   align: "center"
+        // },
         {
           name: "prixTotal",
           label: "Prix total",
@@ -341,12 +340,12 @@ export default {
           align: "center",
           field: "MoyenPaiement"
         },
-        {
-          name: "etatPaiement",
-          align: "center",
-          label: "Etat de paiement",
-          field: "etatPaiement"
-        },
+        // {
+        //   name: "etatPaiement",
+        //   align: "center",
+        //   label: "Etat de paiement",
+        //   field: "etatPaiement"
+        // },
         {
           name: "livrer_par",
           label: "Livreur",
@@ -359,12 +358,12 @@ export default {
           align: "center",
           field: "etatLivraison"
         },
-        {
-          name: "dateLivraison",
-          label: "Date de livraison",
-          align: "center",
-          field: "dateLivraison"
-        },
+        // {
+        //   name: "dateLivraison",
+        //   label: "Date de livraison",
+        //   align: "center",
+        //   field: "dateLivraison"
+        // },
 
         {
           name: "produits",
@@ -493,11 +492,6 @@ export default {
     },
 
     async deleteCommande(id_commande) {
-      // await this.selected.forEach(element => {
-      //   this.$axios.delete(`/service/delete/${element._id}`);
-      // });
-      //  window.location.reload(true);
-
       let res = await this.$axios.delete(`/commande/delete/${id_commande}`);
       if (res.status === 200) {
         return (
@@ -513,7 +507,7 @@ export default {
     },
     async updateCommande(Commandedata) {
       Commandedata.etatLivraison = "Livrée";
-      Commandedata.etatPaiement = "Payée";
+      // Commandedata.etatPaiement = "Payée";
       let res = await this.$axios.patch(
         `/commande/update/${Commandedata._id}`,
         {

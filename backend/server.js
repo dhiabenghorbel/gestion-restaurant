@@ -13,7 +13,7 @@ app.use(cors());
 //app.use(express.json({ extended: false }));
 app.use("/api/produit", require("./Api/Produit"));
 app.use("/api/categorie", require("./Api/Categorie"));
-app.use("/api/service", require("./Api/Service"));
+// app.use("/api/service", require("./Api/Service"));
 app.use("/api/client", require("./Api/Client"));
 app.use("/api/livreur", require("./Api/Livreur"));
 app.use("/api/utilisateur", require("./Api/Utilisateur"));

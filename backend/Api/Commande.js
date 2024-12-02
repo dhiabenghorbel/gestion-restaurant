@@ -8,14 +8,14 @@ route.post("/", async (req, res) => {
     client,
     importer_par,
     livrer_par,
-    avance,
+    // avance,
     rest,
     prixTotal,
-    etatPaiement,
+    // etatPaiement,
     etatLivraison,
     MoyenPaiement,
     produits,
-    dateLivraison,
+    // dateLivraison,
   } = req.body;
   let date = new Date()
     .toISOString()
@@ -33,15 +33,15 @@ route.post("/", async (req, res) => {
   Commandes.client = client;
   Commandes.importer_par = importer_par;
   Commandes.livrer_par = livrer_par;
-  Commandes.avance = avance;
+  // Commandes.avance = avance;
   Commandes.rest = rest;
   Commandes.prixTotal = prixTotal;
-  Commandes.etatPaiement = etatPaiement;
+  // Commandes.etatPaiement = etatPaiement;
   Commandes.etatLivraison = etatLivraison;
   Commandes.produits = produits;
   Commandes.MoyenPaiement = MoyenPaiement;
   Commandes.createdAt = date;
-  Commandes.dateLivraison = dateLivraison;
+  // Commandes.dateLivraison = dateLivraison;
   // .toISOString()
   // .replace(/T/, " ") // replace T with a space
   // .replace(/\..+/, "");

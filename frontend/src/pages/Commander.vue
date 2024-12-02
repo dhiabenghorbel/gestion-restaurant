@@ -167,7 +167,7 @@ export default {
       filter: "",
       produits: [],
       categories: [],
-      services: [],
+      // services: [],
       selected: [],
       catName: "Enfant",
       //servName: "Lavage",
@@ -218,11 +218,11 @@ export default {
     changeCatName(x) {
       this.catName = x;
     },
-    async getServices() {
-      let res = await this.$axios.get("/service");
-      this.serv = res.data;
-      //  console.log("Services :", this.serv);
-    },
+    // async getServices() {
+    //   let res = await this.$axios.get("/service");
+    //   this.serv = res.data;
+    //   //  console.log("Services :", this.serv);
+    // },
     async getCategories() {
       let res = await this.$axios.get("/categorie");
       this.cat = res.data;
@@ -241,14 +241,14 @@ export default {
       this.produits = res.data;
       // console.log("Produits :", this.produits);
     },
-    async getAllServices() {
-      let res = await this.$axios.get("/service");
-      let services = {};
-      res.data.forEach(el => {
-        services[el._id] = el.nom;
-      });
-      this.services = { ...services };
-    },
+    // async getAllServices() {
+    //   let res = await this.$axios.get("/service");
+    //   let services = {};
+    //   res.data.forEach(el => {
+    //     services[el._id] = el.nom;
+    //   });
+    //   this.services = { ...services };
+    // },
 
     getPanier() {
       if (JSON.parse(localStorage.getItem("panier"))) {
@@ -275,9 +275,9 @@ export default {
   },
 
   async created() {
-    await this.getAllServices();
+    // await this.getAllServices();
     await this.getAll();
-    await this.getServices();
+    // await this.getServices();
     await this.getAllCategories();
     await this.getCategories();
     await this.getPanier();

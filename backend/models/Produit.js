@@ -5,33 +5,21 @@ const produits = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Categorie",
   },
-  // service: [
+  // services: [
   //   {
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: "Service",
+  //     service: {
+  //       type: Schema.Types.ObjectId,
+  //       ref: "Service",
+  //     },
+  //     prix: { type: String },
   //   },
-  //   {
-  //     type: String,
-  //   },
-  // },
   // ],
-  services: [
-    {
-      service: {
-        type: Schema.Types.ObjectId,
-        ref: "Service",
-      },
-      prix: { type: String },
-    },
-  ],
-
   code: { type: String },
   nom: { type: String },
   description: { type: String },
   imageUrl: { type: String },
   etat: { type: String },
-  //prix: { type: String },
+  prix: { type: String },
 });
 
 module.exports = mongoose.model("Produit", produits);

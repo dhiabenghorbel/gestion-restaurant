@@ -222,7 +222,7 @@
       </q-list>
 
       <footer>
-        <q-img class="alignimg" src="~assets/logopressing.png" />
+        <q-img class="alignimg" src="~assets/logobistro2.png" />
       </footer>
     </q-drawer>
 
@@ -279,12 +279,12 @@ const linksData = [
         caption: "",
         icon: "family_restroom",
       },
-      {
-        link: "/service",
-        title: "Services",
-        caption: "",
-        icon: "local_laundry_service",
-      },
+      // {
+      //   link: "/service",
+      //   title: "Services",
+      //   caption: "",
+      //   icon: "local_laundry_service",
+      // },
     ],
   },
 ];

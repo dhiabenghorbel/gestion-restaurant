@@ -160,6 +160,16 @@
                   </q-item>
                   <q-separator horizontal />
                   <q-item>
+                    <q-item-section>
+                      <q-item-label caption>Prix</q-item-label>
+                    </q-item-section>
+
+                    <q-item-section class="absolute-center">
+                      <q-item-label>{{ props.row.prix }} TND</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                  <!-- <q-separator horizontal />
+                  <q-item>
                     <q-scroll-area
                       class="myscr"
                       :thumb-style="thumbStyle"
@@ -181,7 +191,7 @@
                         </span>
                       </q-item-section>
                     </q-scroll-area>
-                  </q-item>
+                  </q-item> -->
                   <q-separator horizontal />
 
                   <!-- <q-item>
@@ -302,7 +312,7 @@ export default {
       filter: "",
       produits: [],
       categories: [],
-      services: [],
+      // services: [],
       confirm: false,
       selected: [],
       columns: [
@@ -350,12 +360,12 @@ export default {
           align: "center",
           field: "categorie"
         },
-        {
-          name: "service",
-          label: "Service",
-          align: "center",
-          field: "service"
-        },
+        // {
+        //   name: "service",
+        //   label: "Service",
+        //   align: "center",
+        //   field: "service"
+        // },
         {
           name: "prix",
           label: "Prix",
@@ -380,14 +390,14 @@ export default {
       this.produits = res.data;
       //console.log(this.produits);
     },
-    async getAllServices() {
-      let res = await this.$axios.get("/service");
-      let services = {};
-      res.data.forEach(el => {
-        services[el._id] = el.nom;
-      });
-      this.services = { ...services };
-    },
+    // async getAllServices() {
+    //   let res = await this.$axios.get("/service");
+    //   let services = {};
+    //   res.data.forEach(el => {
+    //     services[el._id] = el.nom;
+    //   });
+    //   this.services = { ...services };
+    // },
     addProduit() {
       if (this.selected[0]) {
         return this.$q.notify({
@@ -430,7 +440,7 @@ export default {
     }
   },
   async created() {
-    await this.getAllServices();
+    // await this.getAllServices();
     await this.getAll();
     //  await this.getServ();
     await this.getAllCategories();

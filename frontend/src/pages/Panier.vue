@@ -3,7 +3,7 @@
     <br />
     <div align="center">
       <h4>
-        ADDITION
+        Gestion des Commandes
       </h4>
     </div>
 
@@ -202,13 +202,13 @@
           </div>
           <div class="panierVide" align="center">
             <label>
-              PANIER VIDE
+              Vous n'avez encore rien choisi pour votre commande. 
             </label>
           </div>
           <br />
           <div align="center">
             <q-btn
-              label="Continuer vos commandes"
+              label="Passer une commande"
               glossy
               icon-right="shopping_bag"
               style="background-color:#F1C90F;color:white;width:320px"
@@ -366,7 +366,7 @@ h4 {
   font-size: 2em;
   color: darkblue;
   align-self: center;
-  width: 400px;
+  width: 500px;
   padding: 5px;
   letter-spacing: 2px;
   font-weight: bold;

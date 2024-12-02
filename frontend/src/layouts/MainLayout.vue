@@ -263,7 +263,7 @@ const linksData = [
     ],
   },
   {
-    title: "Paramètres",
+    title: "Menu",
     caption: "",
     icon: "settings",
     links: [
@@ -271,13 +271,13 @@ const linksData = [
         link: "/produit",
         title: "Produits",
         caption: "",
-        icon: "luggage",
+        icon: "star",
       },
       {
         link: "/categorie",
         title: "Categories",
         caption: "",
-        icon: "family_restroom",
+        icon: "map",
       },
       // {
       //   link: "/service",

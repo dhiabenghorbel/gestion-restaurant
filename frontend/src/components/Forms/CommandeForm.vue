@@ -255,7 +255,7 @@ export default {
         //     commandeServices.push(el.service);
         //   }
         // });
-        produits.prix = prix * parseInt(produits.quantite);
+        produits.prix = element.prix;
         prix = 0;
         // produits.services = commandeServices;
         comm.push(produits);

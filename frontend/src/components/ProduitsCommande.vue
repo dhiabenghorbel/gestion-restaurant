@@ -40,7 +40,7 @@
                   <q-item-section avatar>
                     <q-item-label caption> Nom</q-item-label>
                   </q-item-section>
-                  <q-item-section class="absolute-center">
+                  <q-item-section class="right">
                     <q-item-label>{{
                       produits[props.row.produit]
                     }}</q-item-label>
@@ -50,7 +50,7 @@
                   <q-item-section avatar>
                     <q-item-label caption>Categorie</q-item-label>
                   </q-item-section>
-                  <q-item-section class="absolute-center">
+                  <q-item-section class="right">
                     <q-item-label>
                       {{ categories[produitsCategorie[props.row.produit]] }}
                     </q-item-label>
@@ -60,15 +60,15 @@
                   <q-item-section avatar>
                     <q-item-label caption> Quantité</q-item-label>
                   </q-item-section>
-                  <q-item-section class="absolute-center">
+                  <q-item-section class="right">
                     <q-item-label>{{ props.row.quantite }}</q-item-label>
                   </q-item-section>
                 </q-item>
                 <q-item>
                   <q-item-section avatar>
-                    <q-item-label caption> Prix</q-item-label>
+                    <q-item-label caption> Prix unitaire </q-item-label>
                   </q-item-section>
-                  <q-item-section class="absolute-center">
+                  <q-item-section class="right">
                     <q-item-label>{{ props.row.prix }} TND</q-item-label>
                   </q-item-section>
                 </q-item>

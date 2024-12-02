@@ -101,6 +101,7 @@
                 no-caps
               />
               <q-btn
+                v-if="props.row.etatLivraison === 'Non Livrer'"
                 @click="
                   update_dialog = true;
                   productToUpdate = props.row;

@@ -2,10 +2,8 @@
   <q-card class="mydialog">
     <q-form class="q-pa-md bg-white text-black" @submit="onAdd()" ref="myForm">
       <br />
-      <label class="title2">
-        Finaliser la commande
-      </label>
-      <q-separator style="width:450px;" color="black" />
+      <label class="title2"> Finaliser la commande </label>
+      <q-separator style="width: 450px" color="black" />
       <label class="title">
         veuillez vous assurer que les informations de la commande<br />
         sont exactes.
@@ -20,14 +18,14 @@
         <q-item-section>
           <q-select
             dense
-            style="width:250px;margin-left:-120px"
+            style="width: 250px; margin-left: -120px"
             label="Moyen de paiement"
             outlined
             color="secondary"
             v-model="commande.MoyenPaiement"
             :options="optionsPaiement"
             lazy-rules
-            :rules="[val => (val && val.length > 0) || 'Champ vide ']"
+            :rules="[(val) => (val && val.length > 0) || 'Champ vide ']"
           >
             <template v-slot:prepend>
               <div class="row items-center all-pointer-events">
@@ -91,14 +89,12 @@
             </template>
           </q-input>
         </q-item-section> -->
-        <label class="title">
-          Prix à payer :
-        </label>
+        <label class="title"> Prix à payer : </label>
         <q-item-section>
           <q-input
             readonly
             hint="Prix total"
-            style="width:220px;margin-left:20px;margin-top:-15px"
+            style="width: 220px; margin-left: 20px; margin-top: -15px"
             dense
             v-model="commande.prixTotal"
             :label="this.prixTotal + ' TND'"
@@ -121,9 +117,7 @@
       <br />
 
       <div>
-        <label class="title">
-          Choisir le client :
-        </label>
+        <label class="title"> Choisir le client : </label>
         <select v-model="commande.client">
           <option v-for="cl in clients" :key="cl._id" :value="cl._id">
             {{ cl.nom }} {{ cl.prenom }}
@@ -146,16 +140,12 @@
       </div> -->
       <br />
       <div>
-        <label class="title">
-          cochez si la commande est avec livraison
-        </label>
+        <label class="title"> cochez si la commande est avec livraison ! </label>
         <q-checkbox v-model="liv_checked" />
       </div>
       <br />
       <div v-if="liv_checked">
-        <label class="title">
-          Choisir le livreur :
-        </label>
+        <label class="title"> Choisir le livreur : </label>
         <select v-model="commande.livrer_par">
           <option v-for="liv in this.livreurs" :key="liv._id" :value="liv._id">
             {{ liv.nom }} {{ liv.prenom }}
@@ -163,17 +153,25 @@
         </select>
         <br />
         <br />
-        <!-- <label class="title">
-          Livraison express à domicile et gratuite<br />
-          La durée du livraison : 2 jours
-        </label>
-        <br /> -->
         <br />
       </div>
-
+      <div>
+        <label class="title"> cochez si vous voulez donner votre avis ! </label>
+        <q-checkbox v-model="feedback_checked" />
+      </div>
       <br />
-
-      <br />
+      <div v-if="feedback_checked">
+        <q-input
+          filled
+          type="textarea"
+          outlined
+          color="grey-8"
+          class="q-my-md"
+          label="Entrez votre feedback ici"
+          v-model="feedbackText"
+          style="width: 400px"
+        />
+      </div>
       <div align="center">
         <q-btn
           label="Confirmer"
@@ -200,38 +198,37 @@
 export default {
   data() {
     return {
-      // genreOptions: ["Homme", "Femme"],
-      // etatLivraison: ["Livrée", "En cours", "Prète"],
-      // etatPaiement: ["Payée", "Non Payée"],
       livreurs: [],
       clients: [],
       optionsPaiement: ["Espéces", "Chéque Bancaire", "Carte Bancaire"],
       prixTotal: 0,
       commande: {},
-      // rest: 0,
-      // avance: 0,
+      feedbackText:null,
       prix: 0,
       liv_checked: false,
+      feedback_checked: false,
       produitPanier: {},
-      dateLiv: null
+      dateLiv: null,
     };
   },
 
   methods: {
     editDate() {
       const current = new Date();
-      this.dateLiv = `${current.getFullYear()}-${current.getMonth() +
-        1}-${current.getDate() + 2} `;
+      this.dateLiv = `${current.getFullYear()}-${current.getMonth() + 1}-${
+        current.getDate() + 2
+      } `;
       return this.dateLiv;
     },
     CalculPrix() {
       let panier = JSON.parse(localStorage.getItem("panier"));
-      panier.forEach(element => {
-            this.prix = this.prix + (parseFloat(element.prix) * parseInt(element.quantity)) ;
-        });
-        // this.prix = this.prix * parseInt(element.quantity);
-        this.prixTotal = this.prix;
-        this.prix = 0;
+      panier.forEach((element) => {
+        this.prix =
+          this.prix + parseFloat(element.prix) * parseInt(element.quantity);
+      });
+      // this.prix = this.prix * parseInt(element.quantity);
+      this.prixTotal = this.prix;
+      this.prix = 0;
       //console.log("prix : ", this.prixTotal);
       return this.prixTotal;
     },
@@ -243,34 +240,19 @@ export default {
       let comm = [];
       let prix = 0;
       let panier = JSON.parse(localStorage.getItem("panier"));
-      console.log('🚀 ~ panier ~ panier ~ panier', panier);
-      panier.forEach(element => {
+      console.log("🚀 ~ panier ~ panier ~ panier", panier);
+      panier.forEach((element) => {
         let produits = {};
-        let commandeServices = [];
         produits.produit = element._id;
         produits.quantite = element.quantity;
-        // element.services.forEach(el => {
-        //   if (el && el.checked) {
-        //     prix = prix + parseFloat(el.prix);
-        //     commandeServices.push(el.service);
-        //   }
-        // });
         produits.prix = element.prix;
         prix = 0;
-        // produits.services = commandeServices;
         comm.push(produits);
       });
       this.commande.produits = comm;
-
-      // this.commande.rest = this.rest;
-      // this.commande.avance = this.avance;
       this.commande.prixTotal = this.prixTotal;
-      // this.commande.dateLivraison = this.dateLiv;
-      // if (this.rest === 0) {
-      //   this.commande.etatPaiement = "Payer";
-      // } else {
-      //   this.commande.etatPaiement = "Non Payer";
-      // }
+      this.commande.feedbackClient = this.feedbackText;
+
       if (this.commande.livrer_par) {
         this.commande.etatLivraison = "Non Livrer";
       }
@@ -286,17 +268,17 @@ export default {
     async onAdd() {
       this.ajoutProd();
       if (this.commande.client) {
-        this.$refs.myForm.validate().then(async success => {
+        this.$refs.myForm.validate().then(async (success) => {
           if (success) {
             let res = await this.$axios.post(`/commande`, {
-              ...this.commande
+              ...this.commande,
             });
             // window.location.reload(true);
             localStorage.removeItem("panier");
             this.$router.push("/mes-commandes");
             return this.$q.notify({
               color: "green",
-              message: "Commande enregistrée avec succées"
+              message: "Commande enregistrée avec succées",
             });
             //this.$emit("updated");
           }
@@ -304,14 +286,14 @@ export default {
       } else {
         return this.$q.notify({
           color: "red",
-          message: "Veuillez remplir tous les champs"
+          message: "Veuillez remplir tous les champs",
         });
       }
     },
 
     onCancel() {
       this.$emit("closeDialog");
-    }
+    },
   },
   computed() {
     this.prixRest();
@@ -324,11 +306,11 @@ export default {
     await this.editDate();
     await this.getAllClients();
     await this.getAllLivreurs();
-    let panier = JSON.parse(localStorage.getItem("panier"));
+    // let panier = JSON.parse(localStorage.getItem("panier"));
     // await console.log("panier :", panier);
     await this.CalculPrix();
     //  console.log(this.prixTotal);
-  }
+  },
 };
 </script>
 <style scoped>

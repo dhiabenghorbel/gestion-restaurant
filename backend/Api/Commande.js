@@ -8,14 +8,12 @@ route.post("/", async (req, res) => {
     client,
     importer_par,
     livrer_par,
-    // avance,
     rest,
     prixTotal,
-    // etatPaiement,
     etatLivraison,
     MoyenPaiement,
+    feedbackClient,
     produits,
-    // dateLivraison,
   } = req.body;
   let date = new Date()
     .toISOString()
@@ -33,13 +31,12 @@ route.post("/", async (req, res) => {
   Commandes.client = client;
   Commandes.importer_par = importer_par;
   Commandes.livrer_par = livrer_par;
-  // Commandes.avance = avance;
   Commandes.rest = rest;
   Commandes.prixTotal = prixTotal;
-  // Commandes.etatPaiement = etatPaiement;
   Commandes.etatLivraison = etatLivraison;
   Commandes.produits = produits;
   Commandes.MoyenPaiement = MoyenPaiement;
+  Commandes.feedbackClient = feedbackClient;
   Commandes.createdAt = date;
   // Commandes.dateLivraison = dateLivraison;
   // .toISOString()

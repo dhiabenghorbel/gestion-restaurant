@@ -80,6 +80,19 @@
               >
               </q-btn>
             </q-td>
+            <q-td key="feedbackClient" :props="props"
+              ><q-btn
+                @click="
+                  show_feedback = true;
+                  feedbackClientToShow = props.row.feedbackClient;
+                "
+                color="blue"
+                label="voir le feedback"
+                size="sm"
+                no-caps
+              >
+              </q-btn>
+            </q-td>
             <q-td key="facture" :props="props"
               ><q-btn
                 color="blue"
@@ -175,6 +188,12 @@
         @closeDialog="show_dialog = false"
       />
     </q-dialog>
+    <q-dialog v-model="show_feedback">
+      <client-feedback
+        :feedback="feedbackClientToShow"
+        @closeDialog="show_feedback = false"
+      />
+    </q-dialog>
     <q-dialog v-model="update_dialog">
       <q-card>
         <q-card-section class="row items-center">
@@ -253,9 +272,9 @@
 </template>
 
 <script>
-import ProduitsCommande from "src/components/ProduitsCommande.vue";
-
 import { exportFile } from "quasar";
+import ProduitsCommande from "src/components/ProduitsCommande.vue";
+import ClientFeedback from "src/components/ClientFeedback.vue";
 import ToPrint from "src/components/ToPrint.vue";
 
 function wrapCsvValue(val, formatFn) {
@@ -278,7 +297,7 @@ function wrapCsvValue(val, formatFn) {
 }
 export default {
   name: "Commandes",
-  components: { ProduitsCommande, ToPrint },
+  components: { ProduitsCommande, ToPrint, ClientFeedback},
   data() {
     return {
       //addShow: false,
@@ -288,6 +307,8 @@ export default {
       productToDelete: null,
       productToUpdate: null,
       show_dialog: false,
+      show_feedback:false,
+      feedbackClientToShow:null,
       //
       pagination: {
         sortBy: "createdAt",
@@ -317,18 +338,6 @@ export default {
           align: "center",
           field: "client"
         },
-        // {
-        //   name: "avance",
-        //   label: "Prix d'avance",
-        //   align: "center",
-        //   field: "avance"
-        // },
-        // {
-        //   name: "rest",
-        //   field: "rest",
-        //   label: "Rest à payer",
-        //   align: "center"
-        // },
         {
           name: "prixTotal",
           label: "Prix total",
@@ -341,12 +350,6 @@ export default {
           align: "center",
           field: "MoyenPaiement"
         },
-        // {
-        //   name: "etatPaiement",
-        //   align: "center",
-        //   label: "Etat de paiement",
-        //   field: "etatPaiement"
-        // },
         {
           name: "livrer_par",
           label: "Livreur",
@@ -359,18 +362,17 @@ export default {
           align: "center",
           field: "etatLivraison"
         },
-        // {
-        //   name: "dateLivraison",
-        //   label: "Date de livraison",
-        //   align: "center",
-        //   field: "dateLivraison"
-        // },
-
         {
           name: "produits",
           label: "Produits commandés",
           align: "center",
           field: "produits"
+        },
+        {
+          name: "feedbackClient",
+          align: "center",
+          label: "Avis du client",
+          field: "feedbackClient"
         },
         {
           name: "facture",
@@ -533,8 +535,6 @@ export default {
   watch: {},
   async created() {
     await this.getAll();
-    //console.log(this.commandes);
-
     await this.getAllNomClients();
     await this.getAllNomLivreurs();
     await this.getAllPrenomClients();

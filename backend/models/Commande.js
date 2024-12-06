@@ -6,12 +6,9 @@ const commandes = new Schema({
   client: { type: Schema.Types.ObjectId, ref: "Client" },
   importer_par: { type: Schema.Types.ObjectId, ref: "Livreur" },
   livrer_par: { type: Schema.Types.ObjectId, ref: "Livreur" },
-  // avance: { type: String },
-  // rest: { type: String },
   prixTotal: { type: String },
-  // etatPaiement: { type: String },
   etatLivraison: { type: String },
-  // dateLivraison: { type: String },
+  feedbackClient: { type: String },
   MoyenPaiement: { type: String },
   produits: [
     {

@@ -125,26 +125,13 @@
         </select>
       </div>
       <br />
-      <!-- <label class="title"> Livreur : </label>
-      <br /> -->
-      <!-- <br /> -->
-      <!-- <div>
-        <label class="title">
-          Importer par :
-        </label>
-        <select v-model="commande.importer_par">
-          <option v-for="liv in this.livreurs" :key="liv._id" :value="liv._id">
-            {{ liv.nom }} {{ liv.prenom }}
-          </option>
-        </select>
-      </div> -->
       <br />
-      <div>
+      <!-- <div>
         <label class="title"> cochez si la commande est avec livraison ! </label>
         <q-checkbox v-model="liv_checked" />
-      </div>
+      </div> -->
       <br />
-      <div v-if="liv_checked">
+      <!-- <div v-if="liv_checked">
         <label class="title"> Choisir le livreur : </label>
         <select v-model="commande.livrer_par">
           <option v-for="liv in this.livreurs" :key="liv._id" :value="liv._id">
@@ -154,13 +141,35 @@
         <br />
         <br />
         <br />
-      </div>
+      </div> -->
       <div>
         <label class="title"> cochez si vous voulez donner votre avis ! </label>
         <q-checkbox v-model="feedback_checked" />
       </div>
       <br />
       <div v-if="feedback_checked">
+        <label class="title"> vous etes satisfait ? </label>
+        <q-btn
+          @click="addSatisfaction('satisfied')"
+          style="margin-right: 15px;margin-left: 10px"
+          glossy
+          icon="sentiment_very_satisfied"
+          :color="this.satisfactionClient === 'satisfied' ? 'green' : 'grey'"
+          />
+        <q-btn
+          @click="addSatisfaction('neutral')"
+          style="margin-right: 15px"
+          glossy
+          icon="sentiment_neutral"
+          :color="this.satisfactionClient === 'neutral' ? 'yellow' : 'grey'"
+          />
+        <q-btn
+          @click="addSatisfaction('dissatisfied')"
+          style="margin-right: 10px"
+          glossy
+          icon="sentiment_very_dissatisfied"
+          :color="this.satisfactionClient === 'dissatisfied' ? 'red' : 'grey'"
+          />
         <q-input
           filled
           type="textarea"
@@ -198,17 +207,17 @@
 export default {
   data() {
     return {
-      livreurs: [],
+      satisfactionClient: 'neutral',
       clients: [],
       optionsPaiement: ["Espéces", "Chéque Bancaire", "Carte Bancaire"],
       prixTotal: 0,
       commande: {},
       feedbackText:null,
       prix: 0,
-      liv_checked: false,
+      // liv_checked: false,
       feedback_checked: false,
       produitPanier: {},
-      dateLiv: null,
+      // dateLiv: null,
     };
   },
 
@@ -252,18 +261,11 @@ export default {
       this.commande.produits = comm;
       this.commande.prixTotal = this.prixTotal;
       this.commande.feedbackClient = this.feedbackText;
-
-      if (this.commande.livrer_par) {
-        this.commande.etatLivraison = "Non Livrer";
-      }
+      this.commande.satisfactionClient = this.satisfactionClient;
     },
     async getAllClients() {
       let res = await this.$axios.get("/client");
       this.clients = res.data;
-    },
-    async getAllLivreurs() {
-      let res = await this.$axios.get("/livreur");
-      this.livreurs = res.data;
     },
     async onAdd() {
       this.ajoutProd();
@@ -294,6 +296,9 @@ export default {
     onCancel() {
       this.$emit("closeDialog");
     },
+    addSatisfaction(satisfaction) {
+      this.satisfactionClient = satisfaction;
+    }
   },
   computed() {
     this.prixRest();
@@ -301,15 +306,11 @@ export default {
   async mounted() {
     // this.produitPanier = { ...this.panier };
     //   this.prixTotal = { ...this.prix };
-    // await console.log("prix total :", this.prix);
-    // await console.log("panier:", this.produitPanier);
     await this.editDate();
     await this.getAllClients();
-    await this.getAllLivreurs();
+    // await this.getAllLivreurs();
     // let panier = JSON.parse(localStorage.getItem("panier"));
-    // await console.log("panier :", panier);
     await this.CalculPrix();
-    //  console.log(this.prixTotal);
   },
 };
 </script>

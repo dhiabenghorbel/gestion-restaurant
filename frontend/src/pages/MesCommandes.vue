@@ -3,7 +3,7 @@
     <!-- <q-card-section class="bg-primary text-white">-->
     <h4>Liste des commandes</h4>
     <!-- </q-card-section> -->
-    <q-separator style="margin-bottom:10px;" color="black" />
+    <q-separator style="margin-bottom: 10px" color="black" />
     <br />
     <div>
       <q-btn
@@ -11,7 +11,7 @@
         rounded
         dense
         icon-right="send"
-        style="margin-left:30px;padding-left:6px"
+        style="margin-left: 30px; padding-left: 6px"
         icon="reorder"
         to="/commander"
         class="shadowbutton"
@@ -57,13 +57,13 @@
             <!-- <q-td key="etatPaiement" :props="props">{{
               props.row.etatPaiement
             }}</q-td> -->
-            <q-td key="livrer_par" :props="props"
+            <!-- <q-td key="livrer_par" :props="props"
               >{{ NomLivreurs[props.row.livrer_par] }}
               {{ PrenomLivreurs[props.row.livrer_par] }}
             </q-td>
             <q-td key="etatLivraison" :props="props">{{
               props.row.etatLivraison
-            }}</q-td>
+            }}</q-td> -->
             <!-- <q-td key="dateLivraison" :props="props">{{
               props.row.dateLivraison
             }}</q-td> -->
@@ -79,6 +79,29 @@
                 no-caps
               >
               </q-btn>
+            </q-td>
+            <q-td key="satisfactionClient" :props="props">
+              <q-btn
+                v-if="props.row.satisfactionClient === 'satisfied'"
+                glossy
+                icon="sentiment_very_satisfied"
+                color="green"
+                readonly
+              />
+              <q-btn
+              v-if="props.row.satisfactionClient === 'neutral'"
+                glossy
+                icon="sentiment_neutral"
+                color="yellow"
+                readonly
+              />
+              <q-btn
+              v-if="props.row.satisfactionClient === 'dissatisfied'"
+                glossy
+                icon="sentiment_very_dissatisfied"
+                color="red"
+                readonly
+              />
             </q-td>
             <q-td key="feedbackClient" :props="props"
               ><q-btn
@@ -113,18 +136,6 @@
                 size="sm"
                 no-caps
               />
-              <q-btn
-                v-if="props.row.etatLivraison === 'Non Livrer'"
-                @click="
-                  update_dialog = true;
-                  productToUpdate = props.row;
-                "
-                style="margin-left:5px"
-                color="green"
-                icon="check"
-                size="sm"
-                no-caps
-              />
             </q-td>
             <to-print
               :toPrint="props.row"
@@ -138,7 +149,7 @@
           <q-input
             class="searchy"
             dense
-            style="margin-right:25px"
+            style="margin-right: 25px"
             v-model="filter"
             placeholder="  Chercher...."
           >
@@ -173,7 +184,7 @@
         </template>
       </q-table>
 
-      <div class="row justify-center q-mt-md" style="margin-top:30px">
+      <div class="row justify-center q-mt-md" style="margin-top: 30px">
         <q-pagination
           v-model="pagination.page"
           color="blue-10"
@@ -297,7 +308,7 @@ function wrapCsvValue(val, formatFn) {
 }
 export default {
   name: "Commandes",
-  components: { ProduitsCommande, ToPrint, ClientFeedback},
+  components: { ProduitsCommande, ToPrint, ClientFeedback },
   data() {
     return {
       //addShow: false,
@@ -307,22 +318,22 @@ export default {
       productToDelete: null,
       productToUpdate: null,
       show_dialog: false,
-      show_feedback:false,
-      feedbackClientToShow:null,
+      show_feedback: false,
+      feedbackClientToShow: null,
       //
       pagination: {
         sortBy: "createdAt",
         page: 1,
         descending: true,
-        rowsPerPage: 10
+        rowsPerPage: 10,
       },
       filter: "",
       selected: [],
       commandes: [],
       NomClients: [],
       PrenomClients: [],
-      NomLivreurs: [],
-      PrenomLivreurs: [],
+      // NomLivreurs: [],
+      // PrenomLivreurs: [],
       update_dialog: false,
       confirm: false,
       columns: [
@@ -330,63 +341,69 @@ export default {
           name: "createdAt",
           label: "Date de création",
           align: "center",
-          field: "createdAt"
+          field: "createdAt",
         },
         {
           name: "client",
           label: "Client",
           align: "center",
-          field: "client"
+          field: "client",
         },
         {
           name: "prixTotal",
           label: "Prix total",
           align: "center",
-          field: "prixTotal"
+          field: "prixTotal",
         },
         {
           name: "MoyenPaiement",
           label: "Moyen de paiement",
           align: "center",
-          field: "MoyenPaiement"
+          field: "MoyenPaiement",
         },
-        {
-          name: "livrer_par",
-          label: "Livreur",
-          align: "center",
-          field: "livrer_par"
-        },
-        {
-          name: "etatLivraison",
-          label: "Etat de livraison",
-          align: "center",
-          field: "etatLivraison"
-        },
+        // {
+        //   name: "livrer_par",
+        //   label: "Livreur",
+        //   align: "center",
+        //   field: "livrer_par"
+        // },
+        // {
+        //   name: "etatLivraison",
+        //   label: "Etat de livraison",
+        //   align: "center",
+        //   field: "etatLivraison"
+        // },
         {
           name: "produits",
           label: "Produits commandés",
           align: "center",
-          field: "produits"
+          field: "produits",
+        },
+        {
+          name: "satisfactionClient",
+          align: "center",
+          label: "Satisfaction",
+          field: "satisfactionClient",
         },
         {
           name: "feedbackClient",
           align: "center",
           label: "Avis du client",
-          field: "feedbackClient"
+          field: "feedbackClient",
         },
         {
           name: "facture",
           label: "Facture",
           align: "center",
-          field: "facture"
+          field: "facture",
         },
         {
           name: "Action",
           label: "Action",
           align: "center",
-          field: "Action"
-        }
-      ]
+          field: "Action",
+        },
+      ],
     };
   },
 
@@ -428,11 +445,11 @@ export default {
     },
     exportTable() {
       // naive encoding to csv format
-      const content = [this.columns.map(col => wrapCsvValue(col.label))]
+      const content = [this.columns.map((col) => wrapCsvValue(col.label))]
         .concat(
-          this.commandes.map(row =>
+          this.commandes.map((row) =>
             this.columns
-              .map(col =>
+              .map((col) =>
                 wrapCsvValue(
                   typeof col.field === "function"
                     ? col.field(row)
@@ -451,44 +468,44 @@ export default {
         this.$q.notify({
           message: "Browser denied file download...",
           color: "negative",
-          icon: "warning"
+          icon: "warning",
         });
       }
     },
     async getAllNomClients() {
       let res = await this.$axios.get("/client");
       let NomClients = {};
-      res.data.forEach(el => {
+      res.data.forEach((el) => {
         NomClients[el._id] = el.nom;
       });
       this.NomClients = { ...NomClients };
     },
 
-    async getAllNomLivreurs() {
-      let res = await this.$axios.get("/livreur");
-      let NomLivreurs = {};
-      res.data.forEach(el => {
-        NomLivreurs[el._id] = el.nom;
-      });
-      this.NomLivreurs = { ...NomLivreurs };
-    },
+    // async getAllNomLivreurs() {
+    //   let res = await this.$axios.get("/livreur");
+    //   let NomLivreurs = {};
+    //   res.data.forEach(el => {
+    //     NomLivreurs[el._id] = el.nom;
+    //   });
+    //   this.NomLivreurs = { ...NomLivreurs };
+    // },
     async getAllPrenomClients() {
       let res = await this.$axios.get("/client");
       let PrenomClients = {};
-      res.data.forEach(el => {
+      res.data.forEach((el) => {
         PrenomClients[el._id] = el.prenom;
       });
       this.PrenomClients = { ...PrenomClients };
     },
 
-    async getAllPrenomLivreurs() {
-      let res = await this.$axios.get("/livreur");
-      let PrenomLivreurs = {};
-      res.data.forEach(el => {
-        PrenomLivreurs[el._id] = el.prenom;
-      });
-      this.PrenomLivreurs = { ...PrenomLivreurs };
-    },
+    // async getAllPrenomLivreurs() {
+    //   let res = await this.$axios.get("/livreur");
+    //   let PrenomLivreurs = {};
+    //   res.data.forEach(el => {
+    //     PrenomLivreurs[el._id] = el.prenom;
+    //   });
+    //   this.PrenomLivreurs = { ...PrenomLivreurs };
+    // },
     async getAll() {
       let res = await this.$axios.get("/commande");
       this.commandes = res.data;
@@ -500,7 +517,7 @@ export default {
         return (
           this.$q.notify({
             color: "red",
-            message: "Commande Supprimé"
+            message: "Commande Supprimé",
           }),
           await this.getAll()
 
@@ -514,32 +531,32 @@ export default {
       let res = await this.$axios.patch(
         `/commande/update/${Commandedata._id}`,
         {
-          ...Commandedata
+          ...Commandedata,
         }
       );
       return (
         this.$q.notify({
           color: "green",
-          message: "Commande confirmer"
+          message: "Commande confirmer",
         }),
         this.getAll()
         //window.location.reload(true)
       );
-    }
+    },
   },
   computed: {
     pagesNumber() {
       return Math.ceil(this.commandes.length / this.pagination.rowsPerPage);
-    }
+    },
   },
   watch: {},
   async created() {
     await this.getAll();
     await this.getAllNomClients();
-    await this.getAllNomLivreurs();
+    // await this.getAllNomLivreurs();
     await this.getAllPrenomClients();
-    await this.getAllPrenomLivreurs();
-  }
+    // await this.getAllPrenomLivreurs();
+  },
 };
 </script>
 <style scoped>

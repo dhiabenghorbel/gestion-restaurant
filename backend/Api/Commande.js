@@ -13,6 +13,7 @@ route.post("/", async (req, res) => {
     etatLivraison,
     MoyenPaiement,
     feedbackClient,
+    satisfactionClient,
     produits,
   } = req.body;
   let date = new Date()
@@ -29,14 +30,15 @@ route.post("/", async (req, res) => {
   // yesterday = new Date(yesterday);
   let Commandes = {};
   Commandes.client = client;
-  Commandes.importer_par = importer_par;
-  Commandes.livrer_par = livrer_par;
+  // Commandes.importer_par = importer_par;
+  // Commandes.livrer_par = livrer_par;
   Commandes.rest = rest;
   Commandes.prixTotal = prixTotal;
-  Commandes.etatLivraison = etatLivraison;
+  // Commandes.etatLivraison = etatLivraison;
   Commandes.produits = produits;
   Commandes.MoyenPaiement = MoyenPaiement;
   Commandes.feedbackClient = feedbackClient;
+  Commandes.satisfactionClient = satisfactionClient;
   Commandes.createdAt = date;
   // Commandes.dateLivraison = dateLivraison;
   // .toISOString()

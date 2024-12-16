@@ -115,7 +115,7 @@ route.post("/register", async (req, res) => {
       Utilisateurs.imageUrl = imageUrl;
       Utilisateurs.etat = etat;
       Utilisateurs.createdAt = date;
-      Utilisateurs.isAdmin = isAdmin;
+      Utilisateurs.isAdmin = true;
       let utilisateursModel = new utilisateurs(Utilisateurs);
       utilisateursModel.save();
       res.json(utilisateursModel);

@@ -28,13 +28,13 @@ const routes = [
         }
       },
 
-      {
-        path: "/livreur",
-        component: () => import("src/pages/Livreur.vue"),
-        meta: {
-          requiresAuth: true
-        }
-      },
+      // {
+      //   path: "/livreur",
+      //   component: () => import("src/pages/Livreur.vue"),
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // },
       {
         path: "/user",
         component: () => import("src/pages/Users.vue"),

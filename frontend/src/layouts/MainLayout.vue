@@ -248,12 +248,12 @@ const linksData = [
         caption: "",
         icon: "account_box",
       },
-      {
-        link: "/livreur",
-        title: "Livreurs",
-        caption: "",
-        icon: "delivery_dining",
-      },
+      // {
+      //   link: "/livreur",
+      //   title: "Livreurs",
+      //   caption: "",
+      //   icon: "delivery_dining",
+      // },
       // {
       //   link: "/client",
       //   title: "Clients",

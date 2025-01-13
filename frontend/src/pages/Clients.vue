@@ -3,7 +3,7 @@
     <!-- <q-card-section class="bg-primary text-white">-->
     <h4>Gestion des clients</h4>
     <!-- </q-card-section> -->
-    <q-separator style="margin-bottom:10px" color="black" />
+    <q-separator style="margin-bottom: 10px" color="black" />
     <br />
     <div>
       <div>
@@ -13,7 +13,7 @@
           dense
           class="shadowbutton"
           :disable="selected.length > 0"
-          style="margin-left:30px;"
+          style="margin-left: 30px"
           icon-right="person_add_alt"
           icon="add_circle_outline"
           @click="addClient()"
@@ -26,7 +26,7 @@
         <q-btn
           align="right"
           class="transform"
-          style="margin-right:30px;background-color:#148F77;color:white"
+          style="margin-right: 30px; background-color: #148f77; color: white"
           size="13px"
           glossy
           icon-right="change_circle"
@@ -96,7 +96,7 @@
         :filter="filter"
         title="Liste des clients"
         separator="cell"
-        :data="clients"
+        :data="AllClients"
         :columns="columns"
         row-key="_id"
         selection="single"
@@ -110,7 +110,7 @@
           <q-input
             class="searchy"
             dense
-            style="margin-right:25px"
+            style="margin-right: 25px"
             v-model="filter"
             placeholder="  Chercher...."
           >
@@ -144,7 +144,7 @@
           />
         </template>
       </q-table>
-      <div class="row justify-center q-mt-md" style="margin-top:30px">
+      <div class="row justify-center q-mt-md" style="margin-top: 30px">
         <q-pagination
           v-model="pagination.page"
           color="blue-10"
@@ -191,13 +191,14 @@ export default {
   name: "Clients",
   data() {
     return {
+      AllClients:{},
       //addShow: false,
       editDialog: false,
       pagination: {
         sortBy: "createdAt",
         page: 1,
         descending: true,
-        rowsPerPage: 8
+        rowsPerPage: 8,
       },
       filter: "",
       clients: [],
@@ -208,19 +209,19 @@ export default {
           name: "nom",
           label: "Nom",
           align: "center",
-          field: "nom"
+          field: "nom",
         },
         {
           name: "prenom",
           label: "Prénom",
           align: "center",
-          field: "prenom"
+          field: "prenom",
         },
         {
           name: "date_naissance",
           field: "date_naissance",
           label: "Date de naissance",
-          align: "center"
+          align: "center",
         },
         { name: "genre", label: "Genre", align: "center", field: "genre" },
 
@@ -228,7 +229,7 @@ export default {
           name: "email",
           align: "center",
           label: "Email",
-          field: "email"
+          field: "email",
         },
 
         // {
@@ -241,21 +242,21 @@ export default {
           name: "ville",
           label: "Ville",
           align: "center",
-          field: "ville"
+          field: "ville",
         },
         { name: "rue", label: "Rue", align: "center", field: "rue" },
         {
           name: "code_postal",
           label: "Code Postal",
           align: "center",
-          field: "code_postal"
+          field: "code_postal",
         },
 
         {
           name: "telephone",
           label: "Téléphone",
           align: "center",
-          field: "telephone"
+          field: "telephone",
         },
         // {
         //   name: "etat",
@@ -267,20 +268,20 @@ export default {
           name: "createdAt",
           label: "Date de création",
           align: "center",
-          field: "createdAt"
-        }
-      ]
+          field: "createdAt",
+        },
+      ],
     };
   },
 
   methods: {
     exportTable() {
       // naive encoding to csv format
-      const content = [this.columns.map(col => wrapCsvValue(col.label))]
+      const content = [this.columns.map((col) => wrapCsvValue(col.label))]
         .concat(
-          this.clients.map(row =>
+          this.clients.map((row) =>
             this.columns
-              .map(col =>
+              .map((col) =>
                 wrapCsvValue(
                   typeof col.field === "function"
                     ? col.field(row)
@@ -299,20 +300,28 @@ export default {
         this.$q.notify({
           message: "Browser denied file download...",
           color: "negative",
-          icon: "warning"
+          icon: "warning",
         });
       }
     },
 
     async getAll() {
-      let res = await this.$axios.get("/client");
-      this.clients = res.data;
+      let res = await this.$axios.get("/utilisateur");
+      const clients = [];
+      this.utilisateurs = res.data;
+      this.utilisateurs.forEach((element) => {
+        if (element.isClient === true) {
+          clients.push(element);
+        }
+      });
+      this.AllClients = clients;
+      console.log(this.AllClients);
     },
     addClient() {
       if (this.selected[0]) {
         return this.$q.notify({
           color: "warning",
-          message: "client selected"
+          message: "client selected",
         });
       } else {
         //    this.addShow = true;
@@ -321,12 +330,12 @@ export default {
     },
     async deleteClient() {
       let res = await this.$axios.delete(
-        `/client/delete/${this.selected[0]._id}`
+        `/utilisateur/delete/${this.selected[0]._id}`
       );
       return (
         this.$q.notify({
           color: "red",
-          message: "Client supprimé"
+          message: "Client supprimé",
         }),
         await this.getAll(),
         (this.selected = [])
@@ -336,21 +345,21 @@ export default {
       if (!this.selected[0]._id) {
         return this.$q.notify({
           color: "warning",
-          message: "no client selected"
+          message: "no client selected",
         });
       }
       this.editDialog = true;
-    }
+    },
   },
   computed: {
     pagesNumber() {
       return Math.ceil(this.clients.length / this.pagination.rowsPerPage);
-    }
+    },
   },
   watch: {},
   async mounted() {
     await this.getAll();
-  }
+  },
 };
 </script>
 <style scoped>

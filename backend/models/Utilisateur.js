@@ -19,6 +19,7 @@ const utilisateurs = new Schema({
   code_postal: { type: String },
   etat: { type: String },
   isAdmin: { type: Boolean },
+  isClient: { type: Boolean },
   tokens: [
     {
       token: {

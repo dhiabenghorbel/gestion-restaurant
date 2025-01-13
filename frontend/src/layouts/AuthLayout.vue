@@ -5,7 +5,7 @@
         <q-toolbar-title
           ><div class="toolbar-title">BISTRO VINTAGE</div>
         </q-toolbar-title>
-        <div class="toolbar-text">CONNEXION</div>
+        <!-- <div class="toolbar-text">CONNEXION</div> -->
         <!-- <router-link to="/login">Login</router-link>
 
         <router-link to="/register">Register</router-link> -->

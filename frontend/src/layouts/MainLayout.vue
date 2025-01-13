@@ -167,7 +167,7 @@
             </div>
           </template>
         </q-item>
-        <q-item to="/client" aria-label="" class="qtem">
+        <q-item v-if="this.userdata.isAdmin" to="/client" aria-label="" class="qtem">
           <template v-slot:>
             <div class="row items-center all-pointer-events">
               <q-icon
@@ -180,6 +180,8 @@
             </div>
           </template>
         </q-item>
+        
+      <div v-if="this.userdata.isAdmin">
         <q-separator />
         <q-expansion-item
           v-for="link in essentialLinks"
@@ -191,9 +193,10 @@
         >
           <EssentialLink class="qtem" :links="link.links" />
         </q-expansion-item>
-
         <q-separator />
-        <!-- <q-item to="/commander" aria-label="" class="qtem">
+      </div>
+
+        <q-item v-if="this.userdata.isClient" to="/commander" aria-label="" class="qtem">
           <template v-slot:>
             <div class="row items-center all-pointer-events">
               <q-icon
@@ -202,11 +205,11 @@
                 size="28px"
                 name="assignment"
               />
-              Commander
+              Menu 
             </div>
           </template>
-        </q-item> -->
-        <q-item to="/mes-commandes" aria-label="" class="qtem">
+        </q-item>
+        <q-item v-if="this.userdata.isAdmin" to="/mes-commandes" aria-label="" class="qtem">
           <template v-slot:>
             <div class="row items-center all-pointer-events">
               <q-icon
@@ -310,7 +313,6 @@ export default {
     async getUserData() {
       let res = await this.$axios.get(`/utilisateur/${this.userId}`);
       this.userdata = res.data;
-      // console.log(this.userdata);
     },
     logUserOut() {
       localStorage.removeItem("token");

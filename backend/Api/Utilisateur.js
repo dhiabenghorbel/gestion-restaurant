@@ -116,6 +116,60 @@ route.post("/register", async (req, res) => {
       Utilisateurs.etat = etat;
       Utilisateurs.createdAt = date;
       Utilisateurs.isAdmin = true;
+      Utilisateurs.isClient = false;
+      let utilisateursModel = new utilisateurs(Utilisateurs);
+      utilisateursModel.save();
+      res.json(utilisateursModel);
+    });
+  } catch (err) {
+    res.json(err, "err");
+  }
+});
+
+route.post("/register-client", async (req, res) => {
+  try {
+    let sameEmail = await utilisateurs.find({ email: req.body.email });
+    if (sameEmail.length >= 1) {
+      return res.status(409).json({
+        message: "email already in use",
+      });
+    }
+
+    const {
+      nom,
+      prenom,
+      genre,
+      email,
+      password,
+      date_naissance,
+      rue,
+      ville,
+      code_postal,
+      telephone,
+      imageUrl,
+      etat,
+    } = req.body;
+    let date = new Date()
+      .toISOString()
+      .replace(/T/, " ") // replace T with a space
+      .replace(/\..+/, ""); // delete the dot and everything after
+    await bcrypt.hash(password, 8).then((hashedPassword) => {
+      const Utilisateurs = {};
+      Utilisateurs.nom = nom;
+      Utilisateurs.prenom = prenom;
+      Utilisateurs.email = email;
+      Utilisateurs.password = hashedPassword;
+      Utilisateurs.code_postal = code_postal;
+      Utilisateurs.rue = rue;
+      Utilisateurs.ville = ville;
+      Utilisateurs.genre = genre;
+      Utilisateurs.date_naissance = date_naissance;
+      Utilisateurs.telephone = telephone;
+      Utilisateurs.imageUrl = imageUrl;
+      Utilisateurs.etat = etat;
+      Utilisateurs.createdAt = date;
+      Utilisateurs.isAdmin = false;
+      Utilisateurs.isClient = true;
       let utilisateursModel = new utilisateurs(Utilisateurs);
       utilisateursModel.save();
       res.json(utilisateursModel);
@@ -130,6 +184,7 @@ route.get("/", async (req, res) => {
   console.log(Utilisateurs);
   res.json(Utilisateurs);
 });
+
 
 route.get("/:id", async (req, res) => {
   const Utilisateurs = await utilisateurs.findById({ _id: req.params.id });

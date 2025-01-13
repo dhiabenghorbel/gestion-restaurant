@@ -93,16 +93,31 @@
               />
             </div>
           </div>
+          <q-btn
+            label="Créer un compte"
+            @click="RegisterClient()"
+            icon-right="person"
+            color="grey"
+            flat
+            class="q-ml-sm"
+          />
         </q-item-section>
       </q-item>
     </q-form>
+    <q-dialog v-model="RegisterDialog" v-if="RegisterDialog">
+      <register-form @closeDialog="RegisterDialog = false" />
+    </q-dialog>
   </div>
 </template>
 
 <script>
+import RegisterForm from "src/components/Forms/RegisterForm.vue";
 export default {
+  components: { RegisterForm },
+
   data() {
     return {
+      RegisterDialog: false,
       isPwd: true,
       login: {
         email: null,
@@ -167,6 +182,9 @@ export default {
       this.login.email = null;
       this.login.password = null;
       // this.accept = false;
+    },
+    RegisterClient() {
+      this.RegisterDialog = true;
     },
   },
   created() {

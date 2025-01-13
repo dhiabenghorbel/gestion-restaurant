@@ -6,7 +6,7 @@
     <q-separator style="margin-bottom: 10px" color="black" />
     <br />
     <div>
-      <div>
+      <!-- <div>
         <q-btn
           glossy
           rounded
@@ -21,7 +21,7 @@
           label="Ajouter un client "
           color="blue-10"
         ></q-btn>
-      </div>
+      </div> -->
       <div align="right">
         <q-btn
           align="right"
@@ -317,17 +317,17 @@ export default {
       this.AllClients = clients;
       console.log(this.AllClients);
     },
-    addClient() {
-      if (this.selected[0]) {
-        return this.$q.notify({
-          color: "warning",
-          message: "client selected",
-        });
-      } else {
-        //    this.addShow = true;
-        this.editDialog = true;
-      }
-    },
+    // addClient() {
+    //   if (this.selected[0]) {
+    //     return this.$q.notify({
+    //       color: "warning",
+    //       message: "client selected",
+    //     });
+    //   } else {
+    //     //    this.addShow = true;
+    //     this.editDialog = true;
+    //   }
+    // },
     async deleteClient() {
       let res = await this.$axios.delete(
         `/utilisateur/delete/${this.selected[0]._id}`

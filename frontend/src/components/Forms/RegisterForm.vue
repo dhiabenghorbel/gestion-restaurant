@@ -461,7 +461,6 @@ export default {
                 "/utilisateur/register-client",
                 this.userCopy
               );
-              console.log(response);
 
               return (
                 this.$q.notify({

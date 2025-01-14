@@ -181,7 +181,7 @@ route.post("/register-client", async (req, res) => {
 
 route.get("/", async (req, res) => {
   const Utilisateurs = await utilisateurs.find();
-  console.log(Utilisateurs);
+  // console.log(Utilisateurs);
   res.json(Utilisateurs);
 });
 

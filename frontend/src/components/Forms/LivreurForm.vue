@@ -491,7 +491,6 @@ export default {
                 "/livreur/register",
                 this.livreurCopy
               );
-              console.log(response);
 
               return (
                 this.$q.notify({

@@ -116,7 +116,7 @@
 
       <br />
 
-      <div>
+      <div  v-if="this.userdata.isAdmin">
         <label class="title"> Choisir le client : </label>
         <select v-model="commande.client">
           <option v-for="cl in clients" :key="cl._id" :value="cl._id">
@@ -204,6 +204,7 @@
   </q-card>
 </template>
 <script>
+import VueJwtDecode from "vue-jwt-decode";
 export default {
   data() {
     return {
@@ -212,6 +213,8 @@ export default {
       optionsPaiement: ["Espéces", "Chéque Bancaire", "Carte Bancaire"],
       prixTotal: 0,
       commande: {},
+      userdata: [],
+      userId:null,
       feedbackText:null,
       prix: 0,
       // liv_checked: false,
@@ -222,6 +225,18 @@ export default {
   },
 
   methods: {
+    async getUser() {
+      let token = localStorage.getItem("token");
+      let decoded = VueJwtDecode.decode(token);
+      let user = decoded;
+      // console.log(this.user);
+      this.userId =  user._id;
+      // console.log(this.userId);
+    },
+    async getUserData() {
+      let res = await this.$axios.get(`/utilisateur/${this.userId}`);
+      this.userdata = res.data;
+    },
     editDate() {
       const current = new Date();
       this.dateLiv = `${current.getFullYear()}-${current.getMonth() + 1}-${
@@ -249,7 +264,6 @@ export default {
       let comm = [];
       let prix = 0;
       let panier = JSON.parse(localStorage.getItem("panier"));
-      console.log("🚀 ~ panier ~ panier ~ panier", panier);
       panier.forEach((element) => {
         let produits = {};
         produits.produit = element._id;
@@ -258,18 +272,25 @@ export default {
         prix = 0;
         comm.push(produits);
       });
+      if(this.userdata.isClient) {
+        this.commande.client = this.userdata ;
+      }
       this.commande.produits = comm;
       this.commande.prixTotal = this.prixTotal;
       this.commande.feedbackClient = this.feedbackText;
       this.commande.satisfactionClient = this.satisfactionClient;
     },
     async getAllClients() {
-      let res = await this.$axios.get("/client");
+      let res = await this.$axios.get("/utilisateur");
       this.clients = res.data;
     },
     async onAdd() {
+      let isClient = false;
+      if (this.userdata.isClient) {
+        isClient = true;
+      }
       this.ajoutProd();
-      if (this.commande.client) {
+      if (isClient || this.commande.client) {
         this.$refs.myForm.validate().then(async (success) => {
           if (success) {
             let res = await this.$axios.post(`/commande`, {
@@ -308,8 +329,8 @@ export default {
     //   this.prixTotal = { ...this.prix };
     await this.editDate();
     await this.getAllClients();
-    // await this.getAllLivreurs();
-    // let panier = JSON.parse(localStorage.getItem("panier"));
+    await this.getUser();
+    await this.getUserData();
     await this.CalculPrix();
   },
 };

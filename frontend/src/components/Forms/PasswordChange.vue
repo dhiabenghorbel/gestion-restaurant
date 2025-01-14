@@ -13,12 +13,12 @@
           Changer le ici !
         </label>
       </div>
-      <div v-if="this.livreur">
+      <!-- <div v-if="this.livreur">
         <label class="title">
           Votre livreur à oublier son mot de passe ?<br />
           Changer le ici !
         </label>
-      </div>
+      </div> -->
 
       <br />
       <br />
@@ -109,7 +109,7 @@
           @click="onEditGerant()"
           color="secondary"
         />
-        <q-btn
+        <!-- <q-btn
           v-if="this.livreur"
           style="margin-right: 15px"
           label="confirmer la modification ll"
@@ -117,7 +117,7 @@
           glossy
           @click="onEditLivreur()"
           color="secondary"
-        />
+        /> -->
 
         <q-btn
           @click="onCancel()"
@@ -137,7 +137,9 @@
 import bcrypt from "bcryptjs";
 
 export default {
-  props: ["user", "livreur"],
+  props: ["user"
+  // ,"livreur"
+],
   data() {
     return {
       isPwd: true,
@@ -156,10 +158,10 @@ export default {
       // console.log(this.encryptPassword(this.password));
       this.userCopy.password = this.encryptPassword(this.password);
     },
-    addLivreur() {
-      // console.log(this.encryptPassword(this.password));
-      this.livreurCopy.password = this.encryptPassword(this.password);
-    },
+    // addLivreur() {
+    //   // console.log(this.encryptPassword(this.password));
+    //   this.livreurCopy.password = this.encryptPassword(this.password);
+    // },
     async onEditGerant() {
       if (this.password != this.confirmPassword) {
         return this.$q.notify({
@@ -192,34 +194,34 @@ export default {
       }
     },
 
-    async onEditLivreur() {
-      if (this.password != this.confirmPassword) {
-        return this.$q.notify({
-          color: "red",
-          message: "Confirmer votre mot de passe"
-        });
-      } else {
-        this.addLivreur();
+    // async onEditLivreur() {
+    //   if (this.password != this.confirmPassword) {
+    //     return this.$q.notify({
+    //       color: "red",
+    //       message: "Confirmer votre mot de passe"
+    //     });
+    //   } else {
+    //     this.addLivreur();
 
-        this.$refs.myForm.validate().then(async success => {
-          if (success) {
-            let res = await this.$axios.patch(
-              `/livreur/update-password/${this.livreur._id}`,
-              {
-                ...this.livreurCopy
-              }
-            );
-            return (
-              this.$q.notify({
-                color: "positive",
-                message: "Changement de Mot de passe avec succées"
-              }),
-              window.location.reload(true)
-            );
-          }
-        });
-      }
-    },
+    //     this.$refs.myForm.validate().then(async success => {
+    //       if (success) {
+    //         let res = await this.$axios.patch(
+    //           `/livreur/update-password/${this.livreur._id}`,
+    //           {
+    //             ...this.livreurCopy
+    //           }
+    //         );
+    //         return (
+    //           this.$q.notify({
+    //             color: "positive",
+    //             message: "Changement de Mot de passe avec succées"
+    //           }),
+    //           window.location.reload(true)
+    //         );
+    //       }
+    //     });
+    //   }
+    // },
 
     onCancel() {
       this.$emit("closeDialog");
@@ -227,7 +229,7 @@ export default {
   },
   mounted() {
     this.userCopy = { ...this.user };
-    this.livreurCopy = { ...this.livreur };
+    // this.livreurCopy = { ...this.livreur };
   }
 };
 </script>

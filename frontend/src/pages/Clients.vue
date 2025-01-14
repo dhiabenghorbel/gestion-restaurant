@@ -315,7 +315,6 @@ export default {
         }
       });
       this.AllClients = clients;
-      console.log(this.AllClients);
     },
     // addClient() {
     //   if (this.selected[0]) {

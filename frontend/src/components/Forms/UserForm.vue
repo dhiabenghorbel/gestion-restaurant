@@ -472,7 +472,6 @@ export default {
                 "/utilisateur/register",
                 this.userCopy
               );
-              console.log(response);
 
               return (
                 this.$q.notify({

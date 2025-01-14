@@ -209,7 +209,7 @@
             </div>
           </template>
         </q-item>
-        <q-item v-if="this.userdata.isAdmin" to="/mes-commandes" aria-label="" class="qtem">
+        <q-item to="/mes-commandes" aria-label="" class="qtem">
           <template v-slot:>
             <div class="row items-center all-pointer-events">
               <q-icon

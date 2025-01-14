@@ -22,8 +22,8 @@
     </div>
     <br />
     <br />
-
-    <template class="q-pa-md">
+ 
+    <template v-if="this.userdata.isAdmin" class="q-pa-md">
       <q-table
         :data="commandes"
         :columns="columns"
@@ -193,6 +193,178 @@
         />
       </div>
     </template>
+
+    <template v-if="this.userdata.isClient" class="q-pa-md">
+      <q-table
+        :data="clientOrders"
+        :columns="columns2"
+        row-key="_id"
+        :pagination.sync="pagination"
+        :filter="filter"
+        title="Liste des commandes"
+        separator="cell"
+        hide-pagination
+        hide-bottom
+      >
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td key="createdAt" :props="props">
+              {{ props.row.createdAt }}
+            </q-td>
+            <!-- <q-td key="client" :props="props">
+              {{ NomClients[props.row.client] }}
+              {{ PrenomClients[props.row.client] }}
+            </q-td> -->
+            <!-- <q-td key="avance" :props="props">
+              {{ props.row.avance }} TND
+            </q-td>
+            <q-td key="rest" :props="props"> {{ props.row.rest }} TND </q-td> -->
+            <q-td key="prixTotal" :props="props"
+              >{{ props.row.prixTotal }} TND</q-td
+            >
+            <q-td key="MoyenPaiement" :props="props">{{
+              props.row.MoyenPaiement
+            }}</q-td>
+            <!-- <q-td key="etatPaiement" :props="props">{{
+              props.row.etatPaiement
+            }}</q-td> -->
+            <!-- <q-td key="livrer_par" :props="props"
+              >{{ NomLivreurs[props.row.livrer_par] }}
+              {{ PrenomLivreurs[props.row.livrer_par] }}
+            </q-td>
+            <q-td key="etatLivraison" :props="props">{{
+              props.row.etatLivraison
+            }}</q-td> -->
+            <!-- <q-td key="dateLivraison" :props="props">{{
+              props.row.dateLivraison
+            }}</q-td> -->
+            <q-td key="produits" :props="props"
+              ><q-btn
+                @click="
+                  show_dialog = true;
+                  productToShow = props.row.produits;
+                "
+                color="blue"
+                label="voir les produits"
+                size="sm"
+                no-caps
+              >
+              </q-btn>
+            </q-td>
+            <q-td key="satisfactionClient" :props="props">
+              <q-btn
+                v-if="props.row.satisfactionClient === 'satisfied'"
+                glossy
+                icon="sentiment_very_satisfied"
+                color="green"
+                readonly
+              />
+              <q-btn
+              v-if="props.row.satisfactionClient === 'neutral'"
+                glossy
+                icon="sentiment_neutral"
+                color="yellow"
+                readonly
+              />
+              <q-btn
+              v-if="props.row.satisfactionClient === 'dissatisfied'"
+                glossy
+                icon="sentiment_very_dissatisfied"
+                color="red"
+                readonly
+              />
+            </q-td>
+            <q-td key="feedbackClient" :props="props"
+              ><q-btn
+                @click="
+                  show_feedback = true;
+                  feedbackClientToShow = props.row.feedbackClient;
+                "
+                color="blue"
+                label="voir le feedback"
+                size="sm"
+                no-caps
+              >
+              </q-btn>
+            </q-td>
+            <q-td key="facture" :props="props"
+              ><q-btn
+                color="blue"
+                label="imprimer facture"
+                size="sm"
+                no-caps
+                @click="PrintElem(props.row._id)"
+              />
+            </q-td>
+            <q-td key="Action" :props="props"
+              ><q-btn
+                @click="
+                  delete_dialog = true;
+                  productToDelete = props.row._id;
+                "
+                color="red"
+                icon-right="delete_forever"
+                size="sm"
+                no-caps
+              />
+            </q-td>
+            <to-print
+              :toPrint="props.row"
+              class="print-only"
+              :id="props.row._id"
+              :key="props.row._id"
+            />
+          </q-tr>
+        </template>
+        <template v-slot:top-right>
+          <q-input
+            class="searchy"
+            dense
+            style="margin-right: 25px"
+            v-model="filter"
+            placeholder="  Chercher...."
+          >
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+          <q-btn
+            color="primary"
+            icon-right="download"
+            label=""
+            no-caps
+            @click="exportTable"
+          />
+        </template>
+        <template v-slot:no-data="{ icon, message, filter }">
+          <div class="full-width row flex-center text-accent q-gutter-sm">
+            <q-icon size="2em" name="sentiment_dissatisfied" />
+            <span> Aucune commande trouvée... {{ message }}</span>
+            <q-icon size="2em" :name="filter ? 'filter_b_and_w' : icon" />
+          </div>
+        </template>
+
+        <template>
+          <q-btn
+            color="primary"
+            icon-right="download"
+            label=""
+            no-caps
+            @click="exportTable"
+          />
+        </template>
+      </q-table>
+
+      <div class="row justify-center q-mt-md" style="margin-top: 30px">
+        <q-pagination
+          v-model="pagination.page"
+          color="blue-10"
+          :max="pagesNumber"
+          size="sm"
+        />
+      </div>
+    </template>
+
     <q-dialog v-model="show_dialog">
       <produits-commande
         :produit="productToShow"
@@ -283,6 +455,7 @@
 </template>
 
 <script>
+import VueJwtDecode from "vue-jwt-decode";
 import { exportFile } from "quasar";
 import ProduitsCommande from "src/components/ProduitsCommande.vue";
 import ClientFeedback from "src/components/ClientFeedback.vue";
@@ -330,6 +503,9 @@ export default {
       filter: "",
       selected: [],
       commandes: [],
+      clientOrders: [],
+      userdata: [],
+      userId: null,
       NomClients: [],
       PrenomClients: [],
       // NomLivreurs: [],
@@ -348,6 +524,68 @@ export default {
           label: "Client",
           align: "center",
           field: "client",
+        },
+        {
+          name: "prixTotal",
+          label: "Prix total",
+          align: "center",
+          field: "prixTotal",
+        },
+        {
+          name: "MoyenPaiement",
+          label: "Moyen de paiement",
+          align: "center",
+          field: "MoyenPaiement",
+        },
+        // {
+        //   name: "livrer_par",
+        //   label: "Livreur",
+        //   align: "center",
+        //   field: "livrer_par"
+        // },
+        // {
+        //   name: "etatLivraison",
+        //   label: "Etat de livraison",
+        //   align: "center",
+        //   field: "etatLivraison"
+        // },
+        {
+          name: "produits",
+          label: "Produits commandés",
+          align: "center",
+          field: "produits",
+        },
+        {
+          name: "satisfactionClient",
+          align: "center",
+          label: "Satisfaction",
+          field: "satisfactionClient",
+        },
+        {
+          name: "feedbackClient",
+          align: "center",
+          label: "Avis du client",
+          field: "feedbackClient",
+        },
+        {
+          name: "facture",
+          label: "Facture",
+          align: "center",
+          field: "facture",
+        },
+        {
+          name: "Action",
+          label: "Action",
+          align: "center",
+          field: "Action",
+        },
+      ],
+      columns2: [
+        {
+          name: "createdAt",
+          label: "Date de création",
+          align: "center",
+          field: "createdAt",
         },
         {
           name: "prixTotal",
@@ -472,8 +710,20 @@ export default {
         });
       }
     },
+    async getUser() {
+      let token = localStorage.getItem("token");
+      let decoded = VueJwtDecode.decode(token);
+      let user = decoded;
+      // console.log(this.user);
+      this.userId =  user._id;
+      // console.log(this.userId);
+    },
+    async getUserData() {
+      let res = await this.$axios.get(`/utilisateur/${this.userId}`);
+      this.userdata = res.data;
+    },
     async getAllNomClients() {
-      let res = await this.$axios.get("/client");
+      let res = await this.$axios.get("/utilisateur");
       let NomClients = {};
       res.data.forEach((el) => {
         NomClients[el._id] = el.nom;
@@ -490,7 +740,7 @@ export default {
     //   this.NomLivreurs = { ...NomLivreurs };
     // },
     async getAllPrenomClients() {
-      let res = await this.$axios.get("/client");
+      let res = await this.$axios.get("/utilisateur");
       let PrenomClients = {};
       res.data.forEach((el) => {
         PrenomClients[el._id] = el.prenom;
@@ -510,6 +760,17 @@ export default {
       let res = await this.$axios.get("/commande");
       this.commandes = res.data;
     },
+
+    async getAllClientOrders() {
+      let res = await this.$axios.get("/commande");
+      let comm = res.data;
+      comm.forEach(element => {
+        if (element.client === this.userdata._id) {
+          this.clientOrders.push(element);
+        }
+      });
+    },
+
 
     async deleteCommande(id_commande) {
       let res = await this.$axios.delete(`/commande/delete/${id_commande}`);
@@ -551,11 +812,13 @@ export default {
   },
   watch: {},
   async created() {
+    await this.getUser();
+    await this.getUserData();
     await this.getAll();
     await this.getAllNomClients();
     // await this.getAllNomLivreurs();
     await this.getAllPrenomClients();
-    // await this.getAllPrenomLivreurs();
+    await this.getAllClientOrders();
   },
 };
 </script>

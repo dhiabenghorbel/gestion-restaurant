@@ -121,7 +121,7 @@ export default {
       return this.date;
     },
     async getClientData() {
-      let res = await this.$axios.get(`/client/${this.toPrint.client}`);
+      let res = await this.$axios.get(`/utilisateur/${this.toPrint.client}`);
       this.client = res.data;
     },
     // async getAllMailClients() {
@@ -149,14 +149,14 @@ export default {
     //   this.NomClients = { ...NomClients };
     // },
 
-    async getAllNomLivreurs() {
-      let res = await this.$axios.get("/livreur");
-      let NomLivreurs = {};
-      res.data.forEach(el => {
-        NomLivreurs[el._id] = el.nom;
-      });
-      this.NomLivreurs = { ...NomLivreurs };
-    },
+    // async getAllNomLivreurs() {
+    //   let res = await this.$axios.get("/livreur");
+    //   let NomLivreurs = {};
+    //   res.data.forEach(el => {
+    //     NomLivreurs[el._id] = el.nom;
+    //   });
+    //   this.NomLivreurs = { ...NomLivreurs };
+    // },
     // async getAllPrenomClients() {
     //   let res = await this.$axios.get("/client");
     //   let PrenomClients = {};
@@ -166,14 +166,14 @@ export default {
     //   this.PrenomClients = { ...PrenomClients };
     // },
 
-    async getAllPrenomLivreurs() {
-      let res = await this.$axios.get("/livreur");
-      let PrenomLivreurs = {};
-      res.data.forEach(el => {
-        PrenomLivreurs[el._id] = el.prenom;
-      });
-      this.PrenomLivreurs = { ...PrenomLivreurs };
-    },
+    // async getAllPrenomLivreurs() {
+    //   let res = await this.$axios.get("/livreur");
+    //   let PrenomLivreurs = {};
+    //   res.data.forEach(el => {
+    //     PrenomLivreurs[el._id] = el.prenom;
+    //   });
+    //   this.PrenomLivreurs = { ...PrenomLivreurs };
+    // },
     async getAllCategorieProduct() {
       let res = await this.$axios.get("/produit");
       let categoryProduct = {};
@@ -202,9 +202,9 @@ export default {
   async mounted() {
     await this.getClientData();
     // this.getAllNomClients();
-    await this.getAllNomLivreurs();
+    // await this.getAllNomLivreurs();
     // this.getAllPrenomClients();
-    await this.getAllPrenomLivreurs();
+    // await this.getAllPrenomLivreurs();
     // this.getAllVilleClients();
     // this.getAllMailClients();
     await this.getAllCategorieProduct();

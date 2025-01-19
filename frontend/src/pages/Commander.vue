@@ -169,7 +169,7 @@ export default {
       categories: [],
       // services: [],
       selected: [],
-      catName: "Enfant",
+      catName: "Boissons",
       //servName: "Lavage",
       cat: [],
       serv: [],

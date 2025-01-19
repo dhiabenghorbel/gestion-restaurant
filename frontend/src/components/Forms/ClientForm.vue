@@ -396,7 +396,7 @@ export default {
           try {
             this.clientCopy.email = this.clientCopy.email.toLowerCase();
 
-            let res = await this.$axios.post(`/client/`, {
+            let res = await this.$axios.post(`/utilisateur/`, {
               ...this.clientCopy
             });
             //  window.location.reload(true);
@@ -419,7 +419,7 @@ export default {
       });
     },
     async getAll() {
-      let res = await this.$axios.get("/client");
+      let res = await this.$axios.get("/utilisateur");
       this.clients = res.data;
     },
     async onEdit() {
@@ -439,7 +439,7 @@ export default {
           });
           if (test === 0) {
             let res = await this.$axios.patch(
-              `/client/update/${this.client._id}`,
+              `/utilisateur/update/${this.client._id}`,
               {
                 ...this.clientCopy
               }
